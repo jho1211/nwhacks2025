@@ -1,0 +1,33 @@
+.input-group {
+    display: flex;
+    flex-direction: column;
+    margin: 5px 0px
+}
+
+.signup-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    z-index: -1;
+    border-radius: 10px;
+    border: 1px solid gray
+}
+
+.register-form {
+    width: 100%;
+}
+
+.create-button {
+    width: 100%;
+    height: 50px;
+    margin-top: 10px;
+    background-color: goldenrod;
+}
