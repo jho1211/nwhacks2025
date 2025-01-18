@@ -11,7 +11,6 @@ export default function Register() {
     const [password, setPassword] = useState<string>("");
     const [error, setError] = useState<string>("");
     const router = useRouter();
-    const minPasswordLength : number = 6;
 
     async function handleSubmit(event: any) {
         event.preventDefault();
