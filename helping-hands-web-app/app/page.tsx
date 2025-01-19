@@ -4,15 +4,17 @@ import styles from "./style.module.css"
 import Navbar from "./components/Navbar/Navbar"
 import { auth } from "@/lib/firebase/clientApp";
 import { onAuthStateChanged } from "firebase/auth";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function LandingPage() {
   const [uid, setUid] = useState<string>();
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) setUid(user.uid);
-    else setUid("");
-  })
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) setUid(user.uid);
+      else setUid("");
+    })
+  }, []);
 
  return (
     <>

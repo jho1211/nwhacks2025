@@ -19,7 +19,7 @@ export default function ConnectPage() {
 
     onAuthStateChanged(auth, (user) => {
         if (!user) {
-            router.push("/");
+            router.push("/user/signin");
             return (<div>You need to be logged in to access this page.</div>)
         } else {
             setUid(user.uid);
