@@ -30,16 +30,6 @@ export default function ProfilePage({params}: {params: Promise<{ uid: string }>}
         }
     }, [user])
 
-    useEffect(() => {
-        if (wishlist) {
-            wishlist.wishlist.map(
-                (wlItem: Wish) => {
-                    return (<tr><td>{wlItem.item_name}</td><td>{wlItem.url}</td><td>{wlItem.priority}</td></tr>)
-                }
-            )
-        }
-    })
-
     return (
         <div>
             {errorMsg == "" ? null : <div>{errorMsg}</div>}
@@ -58,6 +48,15 @@ export default function ProfilePage({params}: {params: Promise<{ uid: string }>}
                         </tr>
                     </thead>
                     <tbody>
+                        {wishlist?.wishlist.map(
+                            (wlItem: Wish, idx: number) => {
+                                return (
+                                <tr key={`row-${idx}`}>
+                                    <td key={`name-${idx}`}>{wlItem.item_name}</td>
+                                    <td key={`url-${idx}`}>{wlItem.url}</td>
+                                    <td key={`pri-${idx}`}>{wlItem.priority}</td></tr>)
+                            }
+                        )}
                     </tbody>
                 </table>
             </div> : null}
