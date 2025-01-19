@@ -43,6 +43,12 @@
   font-family: var(--font-ubuntu);
   font-weight: 700;
   font-size: 30px;
+  gap: 10px;
+}
+
+.header img {
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .messages {
