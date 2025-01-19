@@ -16,7 +16,7 @@ export default function Register() {
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            router.push("/home");
+            router.push("/");
         } else {
             return;
         }

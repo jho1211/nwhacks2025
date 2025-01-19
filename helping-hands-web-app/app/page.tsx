@@ -1,4 +1,5 @@
 import styles from "./style.module.css"
+import Link from 'next/link'
 
 export default function LandingPage() {
  return(
@@ -31,9 +32,9 @@ export default function LandingPage() {
                     </a>
                 </li>
                 <li className={styles.navbar__btn}>
-                    <a href="/" className="button">
+                    <Link href="user/signin" className="button">
                     Log In
-                    </a>
+                    </Link>
                 </li>
             </ul>
         </div>
