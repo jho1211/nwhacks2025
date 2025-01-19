@@ -38,7 +38,8 @@ export default function LandingPage() {
             empower individuals to rebuild their lives through job readiness,
             access to critical resources, and the companionship of someone who
             genuinely cares. Together, we strive to create a nurturing, more
-            inclusive community where everyone has the opportunity to succeed.
+            inclusive community where everyone has the opportunity to succeed, 
+            starting with a helping hand. 
           </p>
           <div className={styles.gap} />
         </section>
