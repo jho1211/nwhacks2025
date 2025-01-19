@@ -10,7 +10,7 @@ export default function Message({ message, uid }: { message: Message; uid: strin
 
   useEffect(() => {
     if (uid) {
-      axios.get<User>(`user/${uid}`)
+      axios.get<User>(`user/${message.senderId}`)
       .then(resp => setUser(resp.data));
     }
   }, [])
