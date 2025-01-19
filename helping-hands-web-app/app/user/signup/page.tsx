@@ -202,8 +202,10 @@ export default function Register() {
                         {photoAlert == "" ? null : <label htmlFor="imageInput" className="alert-text">{photoAlert}</label>}
                         <label htmlFor="imageInput">Profile Picture</label>
                         <input type="file" accept="image/*" onChange={handleImageUpload} required={true}></input>
-                        <img src={image == undefined ? undefined : image.src} width={100} height={100}></img>
-                    </div>
+                        {image && image.src ? (
+        <img src={image.src} width={100} height={100} alt="Profile Preview" />
+    ) : null}
+</div>
                     <button type="submit" className="create-button">Create Account</button>
                 </form>
             </div>)
