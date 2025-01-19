@@ -1,13 +1,13 @@
 import Link from "next/link";
 import styles from "./style.module.css";
 
-export default function Navbar() {
+export default function Navbar(props: {bgColor: string}) {
     return (
         <header>
-    <div className="logo">
+    <div style={{backgroundColor: props.bgColor}}>
     <img src="/helpinghandlogo.png" alt="Logo"/>
     </div>
-    <nav className={styles.navbar}>
+    <nav className={styles.navbar} style={{backgroundColor: props.bgColor}}>
         <div className={styles.navbar__container}>
             <ul className={styles.navbar__menu}>
                 <li className={styles.navbar__item}>

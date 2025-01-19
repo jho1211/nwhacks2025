@@ -1,54 +1,16 @@
 import styles from "./style.module.css"
 import Link from 'next/link'
+import Navbar from "./components/Navbar/Navbar"
 
 export default function LandingPage() {
  return(
     <>
-  <header>
-    <div className="logo">
-    <img src="/helpinghandlogo.png" alt="Logo"/>
-    </div>
-    <nav className={styles.navbar}>
-        <div className={styles.navbar__container}>
-            <ul className={styles.navbar__menu}>
-                <li className={styles.navbar__item}>
-                    <a href="/" className="navbar__links">
-                    Home
-                    </a>
-                </li>
-                <li className={styles.navbar__item}>
-                    <a href="/tech.html" className="navbar__links">
-                    About
-                    </a>
-                </li>
-                <li className={styles.navbar__item}>
-                    <a href="/connect" className="navbar__links">
-                    Profiles
-                    </a>
-                </li>
-                <li className={styles.navbar__item}>
-                    <a href="/" className="navbar__links">
-                    Testimonies
-                    </a>
-                </li>
-                <Link href="user/signin" className="button">
-                  <li className={styles.navbar__btn}>
-                    Sign In
-                  </li>
-                </Link>
-            </ul>
-        </div>
-    </nav>
-  </header>
- 
-
-<main>
-
+    <Navbar bgColor="transparent"></Navbar>
     <div className={styles.main__picture}>
         <img src="/hugging_official.jpg" alt="Main Picture"/>
-    <div/>
-
     </div>
+
+  <main>
     <section className={styles.main__page}>
       <h2>Welcome to Helping Hand</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum.</p>

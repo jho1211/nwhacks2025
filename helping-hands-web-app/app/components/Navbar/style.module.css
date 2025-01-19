@@ -36,7 +36,7 @@
 
 }
 
-#navbar__logo {
+.navbar__logo {
     background-color: #ff8177;
     background-image: transparent; 
     background-size: 100%;
