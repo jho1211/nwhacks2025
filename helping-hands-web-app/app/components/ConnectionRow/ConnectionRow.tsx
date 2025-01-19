@@ -26,7 +26,6 @@ export default function ConnectionRow(props: {uid: string, conn: Connection}) {
         };
         props.conn.status = "accepted";
         axios.put("/connections", newConn).then(() => alert(`Accepted the connection with ${other}`));
-        router.refresh();
     }
 
     const handleReject = (other: string) => {
@@ -38,7 +37,6 @@ export default function ConnectionRow(props: {uid: string, conn: Connection}) {
         };
         props.conn.status = "rejected";
         axios.put("/connections", newConn).then(() => alert(`Rejected the connection with ${other}`));
-        router.refresh();
     }
     
     return (user ? <div className="conn">
@@ -51,7 +49,7 @@ export default function ConnectionRow(props: {uid: string, conn: Connection}) {
             <div className="connection-row-action" onClick={() => handleAccept(user.name)}>✅</div>
             <div className="connection-row-action" onClick={() => handleReject(user.name)}>❌</div>
         </div> : 
-        props.conn.status == "accepted" ? <Link href="/chat"><button className="connection-row-chat-btn">CHAT</button></Link> : 
+        props.conn.status == "accepted" ? <Link href={`/chat/${props.conn.messagesId}`}><button className="connection-row-chat-btn">CHAT</button></Link> : 
         <div className="connection-row-rejected-text">REJECTED</div>}
     </div> : null)
 }

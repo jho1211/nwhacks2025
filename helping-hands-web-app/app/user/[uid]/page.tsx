@@ -46,10 +46,10 @@ export default function ProfilePage({params}: {params: Promise<{ uid: string }>}
             .catch(err => setErrorMsg(err.message));
         };
         
-        if (user?.uid == uid) {
+        if (curUid.current == uid) {
             axios.get<Connection[]>(`connections/${uid}`)
             .then(resp => setConnections(resp.data))
-            .catch(err => setErrorMsg(err.message));
+            .catch(err => console.log(err));
         }
     }, [user])
 

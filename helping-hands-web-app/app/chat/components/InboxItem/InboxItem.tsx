@@ -1,18 +1,15 @@
-import { User } from "@/app/models/user";
-import Image from "next/image";
+import { type UserWithMessagesId } from "../../layout";
+import Link from "next/link";
 import styles from "./inbox-item.module.css";
 
-const InboxItem = ({ user }: { user: User }) => {
+const InboxItem = ({ user }: { user: UserWithMessagesId }) => {
   return (
-    <div className={styles.container}>
-      <Image
-        src={user.profile_img}
-        alt={user.first_name}
-        width={50}
-        height={50}
-      />
-      <h4 className={styles.name}>{user.first_name}</h4>
-    </div>
+    <Link href={`/chat/${user.messagesId}?user=${user.name}`}>
+      <div className={styles.container}>
+        <img src={user.profile_img} alt={user.name} width={50} height={50} />
+        <h4 className={styles.name}>{user.name}</h4>
+      </div>
+    </Link>
   );
 };
 
