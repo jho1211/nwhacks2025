@@ -164,7 +164,7 @@ export default function Register() {
                         </input>
                     </div>
                     <div className="input-group">
-                        {pwAlert == "" ? null : <label htmlFor="pwInput">{pwAlert}</label>}
+                        {pwAlert == "" ? null : <label htmlFor="pwInput" className="alert-text">{pwAlert}</label>}
                         <label htmlFor="pwInput">Password</label>
                         <input 
                         type="password" 
@@ -175,7 +175,7 @@ export default function Register() {
                         </input>
                     </div>
                     <div className="input-group">
-                        {confirmPwAlert == "" ? null : <label htmlFor="confirmPwInput">{confirmPwAlert}</label>}
+                        {confirmPwAlert == "" ? null : <label htmlFor="confirmPwInput" className="alert-text">{confirmPwAlert}</label>}
                         <label htmlFor="confirmPwInput">Confirm Password</label>
                         <input 
                         type="password" 
@@ -199,7 +199,7 @@ export default function Register() {
                         </textarea>
                     </div>
                     <div className="input-group">
-                        {photoAlert == "" ? null : <label htmlFor="imageInput">{photoAlert}</label>}
+                        {photoAlert == "" ? null : <label htmlFor="imageInput" className="alert-text">{photoAlert}</label>}
                         <label htmlFor="imageInput">Profile Picture</label>
                         <input type="file" accept="image/*" onChange={handleImageUpload} required={true}></input>
                         <img src={image == undefined ? undefined : image.src} width={100} height={100}></img>

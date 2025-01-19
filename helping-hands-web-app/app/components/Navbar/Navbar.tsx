@@ -35,11 +35,11 @@ export default function Navbar(props: {bgColor: string, uid: string}) {
                     My Profile
                     </a>
                 </li> : null}
-                {props.uid != "" ? <Link href="user/signout" className="button">
+                {props.uid != "" ? <Link href="/user/signout" className="button">
                   <li className={styles.navbar__btn}>
                     Sign Out
                   </li>
-                </Link> : <Link href="user/signin" className="button">
+                </Link> : <Link href="/user/signin" className="button">
                   <li className={styles.navbar__btn}>
                     Sign In
                   </li>
