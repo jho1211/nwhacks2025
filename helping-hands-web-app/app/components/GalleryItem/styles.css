@@ -35,6 +35,7 @@
     width: 271px;
     height: 99px;
     text-overflow: ellipsis;
+    overflow: auto;
     font-family: Inter;
     font-size: 25px;
     font-weight: 400;
