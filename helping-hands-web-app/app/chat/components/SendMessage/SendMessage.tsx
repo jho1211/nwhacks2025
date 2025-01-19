@@ -17,8 +17,10 @@ import { User } from "@/app/models/models";
 
 const SendMessage = ({
   scroll,
+  messagesId,
 }: {
   scroll: React.RefObject<HTMLSpanElement | null>;
+  messagesId: string;
 }) => {
   const [message, setMessage] = useState("");
   const sendMessage = async (event: FormEvent<HTMLFormElement>) => {
@@ -39,12 +41,13 @@ const SendMessage = ({
       throw Error("ooopppppsss");
     }
 
-    await addDoc(collection(db, "messages"), {
+    await addDoc(collection(db, "message"), {
       content: message,
       name: user.data.name,
       timestamp: serverTimestamp(),
-      sender_id: user.data.uid,
+      senderId: user.data.uid,
       status: "delivered",
+      messagesId,
     });
 
     setMessage("");

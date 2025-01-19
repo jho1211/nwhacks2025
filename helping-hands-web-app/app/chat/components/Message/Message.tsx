@@ -3,24 +3,13 @@ import { type Message } from "@/app/models/models";
 import Image from "next/image";
 import styles from "./message.module.css";
 
-const user: User = {
-  uid: "KTjZXDOfPvc1xxlY1aTVLMInvAk2",
-  first_name: "Test",
-  last_name: "Test",
-  bio: "foo",
-  profile_img: "404.png",
-  role: "mentee",
-};
-
 // TODO: how to get user image?
 
-const Message = ({ message }: { message: Message }) => {
+const Message = ({ message, uid }: { message: Message; uid: string }) => {
   return (
     <div
       className={`${styles.message} ${
-        message.sender_id == user.uid
-          ? `${styles.receiver}`
-          : `${styles.sender}`
+        message.senderId == uid ? `${styles.receiver}` : `${styles.sender}`
       }`}
     >
       <Image
