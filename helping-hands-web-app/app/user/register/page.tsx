@@ -1,6 +1,6 @@
 "use client"
 
-import { firebaseApp } from "../../../lib/firebase/clientApp";
+import { firebaseApp } from "@/lib/firebase/clientApp";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";

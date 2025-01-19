@@ -3,15 +3,29 @@
 import { useRouter } from 'next/navigation'
 import { useState, useEffect, use } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { User, Wishlist, Wish } from '@/app/models/models';
+import { User, Wishlist, Wish, Connection } from '@/app/models/models';
 import axios from "@/app/utils/axios_instance";
 import "./styles.css";
+import {v4 as uuidv4} from 'uuid';
+import { firebaseApp } from "@/lib/firebase/clientApp";
 
 export default function ProfilePage({params}: {params: Promise<{ uid: string }>}) {
     const uid = use(params).uid;
     const [user, setUser] = useState<User>();
     const [errorMsg, setErrorMsg] = useState<string>("");
     const [wishlist, setWishlist] = useState<Wishlist>();
+    const auth = getAuth(firebaseApp);
+    const router = useRouter();
+    const [curUid, setCurUid] = useState<string>("");
+    
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            setCurUid(user.uid)
+        } else {
+            router.push("/user/signin")
+            return (<div>You need to be logged in to access this page.</div>)
+        }
+      });
 
     useEffect(() => {
         const fetchedUser = axios.get<User>(`user/${uid}`)
@@ -29,6 +43,25 @@ export default function ProfilePage({params}: {params: Promise<{ uid: string }>}
             return;
         }
     }, [user])
+
+    const handleConnect = () => {
+        if (curUid && user) {
+            const connection : Connection = {
+                id: uuidv4(),
+                participants: [curUid, user.uid],
+                status: "pending",
+                messagesId: uuidv4()
+            }
+            axios.post("connections", connection)
+            .then(resp => {
+                if (resp.status == 400) {
+                    setErrorMsg(resp.data.message);
+                } else {
+                    alert(`You have sent a connection request to ${user.name}`);
+                }
+            })
+        }
+    }
 
     return (
         <div className="profile-container">
@@ -67,7 +100,7 @@ export default function ProfilePage({params}: {params: Promise<{ uid: string }>}
                     </tbody>
                 </table>
             </div> : null}
-            <button className="connect-button">CONNECT WITH {user?.name}</button>
+            <button className="connect-button" onClick={handleConnect}>CONNECT WITH {user?.name}</button>
         </div>
     )
 }
