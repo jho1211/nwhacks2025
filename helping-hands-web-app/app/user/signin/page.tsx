@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import "./styles.css";
+import Link from "next/link";
 
 export default function Register() {
     const [email, setEmail] = useState<string>("");
@@ -57,6 +58,9 @@ export default function Register() {
                         </input>
                     </div>
                     <button type="submit" className="create-button">Sign-in</button>
+                    <div className="create-account">
+                        <Link href="/user/signup">Create an Account</Link>
+                    </div>
                 </form>
             </div>)
 }
