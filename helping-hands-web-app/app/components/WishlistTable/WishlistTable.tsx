@@ -2,13 +2,13 @@ import { Wishlist, Wish } from "@/app/models/models"
 import { useRouter } from "next/navigation";
 import axios from "@/app/utils/axios_instance";
 import "./styles.css"
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
-export default function WishlistTable(props: {wishlist: Wishlist | undefined, canEdit: boolean}) {
+export default function WishlistTable(props: {wishlist: Wishlist | undefined, canEdit: boolean, handler: Dispatch<SetStateAction<Wishlist>> | undefined}) {
     const [itemName, setItemName] = useState<string>("");
     const [itemUrl, setItemUrl] = useState<string>("");
     const [priority, setPriority] = useState<number>(1);
-    const router = useRouter();
+    const [seed, setSeed] = useState<number>(0);
 
     const handleDeleteItem = (item_name: string) => {
         if (!props.wishlist) return;
@@ -20,10 +20,11 @@ export default function WishlistTable(props: {wishlist: Wishlist | undefined, ca
         };
 
         axios.put("wishlist", newWishlist)
-        .then(resp => {
-            props.wishlist = newWishlist;
+        .then(() => {
+            if (!props.handler) return;
+            else props.handler(newWishlist);
             alert("Successfully removed wishlist item");
-            router.refresh();
+            setSeed(Math.random())
         })
         .catch(err => console.log(err));
     }
@@ -42,16 +43,16 @@ export default function WishlistTable(props: {wishlist: Wishlist | undefined, ca
             };
 
             axios.put("wishlist", newWishlist)
-            .then(resp => {
-                props.wishlist = newWishlist;
+            .then(() => {
+                if (!props.handler) return;
+                else props.handler(newWishlist);
                 alert("Successfully added wishlist item")
-                router.refresh();
             })
             .catch(err => console.log(err));
         }
     }
 
-    return (<table className="wishlist-table">
+    return (<table className="wishlist-table" key={seed}>
         <thead>
             <tr>
                 <td>Item Name</td>
