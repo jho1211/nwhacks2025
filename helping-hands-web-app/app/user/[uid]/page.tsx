@@ -91,9 +91,9 @@ export default function ProfilePage({params}: {params: Promise<{ uid: string }>}
                         <div>{user?.bio}</div>
                     </div>
                 </div>
-                {user?.role == "mentee" ? <div>
+                {user?.role == "mentee" ? <div className="wishlist-container">
                     <div className="wishlist-header">Wishlist</div>
-                    <WishlistTable wishlist={wishlist}></WishlistTable>
+                    <WishlistTable wishlist={wishlist} canEdit={curUid.current == user?.uid}></WishlistTable>
                 </div> : null}
                 {curUid.current == user?.uid ? <ConnectionsTable connections={connections} loggedUid={uid}></ConnectionsTable> : <button className="connect-button" onClick={handleConnect}>CONNECT WITH {user?.name}</button>}
             </div>
