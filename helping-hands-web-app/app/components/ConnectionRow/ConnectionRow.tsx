@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 
 export default function ConnectionRow(props: {uid: string, conn: Connection}) {
     const [user, setUser] = useState<User>();
+    const [seed, setSeed] = useState<number>(0.5);
     const router = useRouter();
 
     useEffect(() => {
@@ -26,6 +27,7 @@ export default function ConnectionRow(props: {uid: string, conn: Connection}) {
         };
         props.conn.status = "accepted";
         axios.put("/connections", newConn).then(() => alert(`Accepted the connection with ${other}`));
+        setSeed(Math.random());
     }
 
     const handleReject = (other: string) => {
@@ -37,6 +39,7 @@ export default function ConnectionRow(props: {uid: string, conn: Connection}) {
         };
         props.conn.status = "rejected";
         axios.put("/connections", newConn).then(() => alert(`Rejected the connection with ${other}`));
+        setSeed(Math.random());
     }
     
     return (user ? <div className="conn">
