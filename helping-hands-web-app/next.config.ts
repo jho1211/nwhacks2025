@@ -8,8 +8,13 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "placehold.co",
       },
-    ],
-  },
+
+        {
+            protocol: 'https',
+            hostname: 'static.vecteezy.com',
+        }
+    ]
+}
 };
 
 export default nextConfig;
