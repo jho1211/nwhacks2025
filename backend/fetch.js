@@ -76,7 +76,6 @@ export const getUserInfo = async (req, res) => {
 // Add new user to database
 export const addUser = async (req, res) => {
     const user = req.body
-    console.log(user);
 
     if (!user.uid || !user.name || !user.role) {
       return res.status(400).json({
