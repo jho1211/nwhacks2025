@@ -3,19 +3,22 @@
 import { useRouter } from 'next/navigation'
 import { useState, useEffect, use, useRef } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { User, Wishlist, Wish, Connection } from '@/app/models/models';
+import { User, Wishlist, Connection } from '@/app/models/models';
 import axios from "@/app/utils/axios_instance";
 import "./styles.css";
 import {v4 as uuidv4} from 'uuid';
 import { firebaseApp } from "@/lib/firebase/clientApp";
 import { AxiosError } from 'axios';
 import Navbar from '@/app/components/Navbar/Navbar';
+import WishlistTable from '@/app/components/WishlistTable/WishlistTable';
+import ConnectionsTable from '@/app/components/ConnectionsTable/ConnectionsTable';
 
 export default function ProfilePage({params}: {params: Promise<{ uid: string }>}) {
     const uid = use(params).uid;
     const [user, setUser] = useState<User>();
     const [errorMsg, setErrorMsg] = useState<string>("");
     const [wishlist, setWishlist] = useState<Wishlist>();
+    const [connections, setConnections] = useState<Connection[]>([]);
     const auth = getAuth(firebaseApp);
     const router = useRouter();
     const curUid = useRef<string>("");
@@ -38,11 +41,15 @@ export default function ProfilePage({params}: {params: Promise<{ uid: string }>}
     useEffect(() => {
         if (user && user.role == "mentee") {
             // fetch the wishlist for the user
-            const wishlist = axios.get<Wishlist>(`wishlist/${uid}`)
+            axios.get<Wishlist>(`wishlist/${uid}`)
             .then(resp => setWishlist(resp.data))
             .catch(err => setErrorMsg(err.message));
-        } else {
-            return;
+        };
+        
+        if (user?.uid == uid) {
+            axios.get<Connection[]>(`connections/${uid}`)
+            .then(resp => setConnections(resp.data))
+            .catch(err => setErrorMsg(err.message));
         }
     }, [user])
 
@@ -85,30 +92,10 @@ export default function ProfilePage({params}: {params: Promise<{ uid: string }>}
                     </div>
                 </div>
                 {user?.role == "mentee" ? <div>
-                    <table className="wishlist-table">
-                        <thead>
-                            <tr>
-                                <td>Item Name</td>
-                                <td>Item URL</td>
-                                <td>Priority</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {wishlist?.wishlist.map(
-                                (wlItem: Wish, idx: number) => {
-                                    return (
-                                    <tr key={`row-${idx}`}>
-                                        <td key={`name-${idx}`}>{wlItem.item_name}</td>
-                                        <td key={`url-${idx}`}>
-                                            <a className="item-link" href={wlItem.url}>{wlItem.url}</a>
-                                        </td>
-                                        <td key={`pri-${idx}`}>{wlItem.priority}</td></tr>)
-                                }
-                            )}
-                        </tbody>
-                    </table>
+                    <div className="wishlist-header">Wishlist</div>
+                    <WishlistTable wishlist={wishlist}></WishlistTable>
                 </div> : null}
-                <button className="connect-button" onClick={handleConnect}>CONNECT WITH {user?.name}</button>
+                {curUid.current == user?.uid ? <ConnectionsTable connections={connections} loggedUid={uid}></ConnectionsTable> : <button className="connect-button" onClick={handleConnect}>CONNECT WITH {user?.name}</button>}
             </div>
         </div>
         )
