@@ -4,7 +4,7 @@ var app = express()
  
 app.use(cors())
 
-import { getUserInfo } from './fetch.js'
+import { getUserInfo, addUser } from './fetch.js'
 
 // GET route to send user information with specified user id to frontend
 app.get('/api/user/:uid', getUserInfo); 
@@ -19,7 +19,7 @@ app.get('/api/user/:uid', getUserInfo);
 // app.get('/api/connections/:uid', fetchHandlers.getConnections);
 
 // // POST route to add user to database
-// app.post('/api/user', fetchHandlers.addUser);
+app.post('/api/user', addUser);
 
 // // POST route to create wishlist
 // app.post('/api/wishlist', fetchHandlers.createWishlist);

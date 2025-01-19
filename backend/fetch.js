@@ -73,49 +73,34 @@ export const getUserInfo = async (req, res) => {
 //     }
 // };
 
-// // Add new user to database
-// const addUser = async (req, res) => {
-//     const uid = req.body.uid;
-//     const first_name = req.body.first_name;
-//     const last_name = req.body.last_name;
-//     const bio = req.body.bio;
-//     const profile_img = req.body.profile_img;
-//     const role = req.body.role;
+// Add new user to database
+export const addUser = async (req, res) => {
+    const user = req.body
   
-//     if (!uid || !first_name || !last_name || !bio || !role) {
-//       return res.status(400).json({
-//         message: "Missing required fields: uid / first_name / last_name / bio / role"
-//       });
-//     }
+    if (!uid || !user.name || !role) {
+      return res.status(400).json({
+        message: "Missing required fields: uid / name / role"
+      });
+    }
   
-//     if (role !== "mentor" && role !== "hp") {
-//       return res.status(400).json({
-//         message: "Invalid role. Must be either 'mentor' or 'hp'."
-//       });
-//     }
+    if (role !== "mentor" && role !== "hp") {
+      return res.status(400).json({
+        message: "Invalid role. Must be either 'mentor' or 'hp'."
+      });
+    }
   
-//     const userQuery = query(usersRef, where("uid", "==", uid));
-//     const userSnapshot = await getDocs(userQuery);
-
-//     if (!userSnapshot.empty) {
-//     return res.status(400).json({
-//         message: `User with UID ${uid} already exists.`
-//     });
-//     }
-
-//     await addDoc(usersRef, {
-//     uid,
-//     first_name,
-//     last_name,
-//     bio,
-//     profile_img: profile_img || null,
-//     role
-//     });
-
-//     res.status(200).json({
-//     message: "User successfully added to the database."
-//     });
-// };
+    const userQuery = await usersRef.where("uid", "==", uid).get();
+    
+    if (!userQuery.empty) {
+        return res.status(400).json({
+            message: `User with UID ${uid} already exists.`
+        });
+    } else {
+        usersRef.add(user)
+        .then(doc => res.status(200).json({message: "User successfully added to the database."}))
+        .catch(err => res.status(500).json({message: err.message}));
+    }
+};
 
 // // Create wishlist for user in database
 // const createWishlist = async (req, res) => {
