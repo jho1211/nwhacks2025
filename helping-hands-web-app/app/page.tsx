@@ -26,20 +26,36 @@ export default function LandingPage() {
   <main>
     <section className={styles.main__page}>
       <h2>Welcome to Helping Hand</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum.</p>
-      <p>Sign in as:</p>
-      <div className={styles.signin}>
-        <button className={styles.mentor__button__signin}>Mentor</button>
-        <div className={styles.gap}/>
-        <button className={styles.mentee__button__signin}>Mentee</button>
+      
+      <p>Helping Hand is a mentorship program that aims to bridge the gap between the community and individuals experiencing homelessness, fostering meaningful connections and mutual support. 
+        By pairing compassionate mentors with those facing challenges such as drug addiction, unemployment, or unstable living conditions, we aim to provide personalized guidance and encouragement. 
+        We strive to empower individuals to rebuild their lives through job readiness, access to critical resources, and the companionship of someone who genuinely cares. 
+        Together, we strive to create a nurturing, more inclusive community where everyone has the opportunity to succeed.</p>
+      <div className={styles.gap}/>
+      </section>
+
+      <div className={styles.gap__big}/>
+      <div className={styles.missions__box}>
+        <div className={styles.mission__section}>
+      <h3>Our Mission</h3>
+      <p>To empower those experiencing homelessness through mentorship, supplying of resources, and community support.
+      </p>
+      </div>
+      <div className={styles.vision__section}>
+      <h3>Our Vision</h3>
+      <p>To inspire a society where compassion and connection drive transformation, and homelessness is no longer seen as an unsolvable crisis, but as an opportunity for collective care and empowerment.
+      </p>
+      </div>
+      <div className={styles.gap}>
+        <div className={styles.vision__section2}>
+      <p>We envision a future where every person has access to mentorship, resources, and a community that believes in their potential to succeed. By bridging the gap between those in need and those willing to help, we seek to cultivate a culture where empathy translates into action, breaking down barriers of stigma and isolation. Together, we can empower individuals to rebuild their lives, achieve their goals, and become thriving members of a supportive and inclusive community.
+        This platform will be a catalyst for change, transforming not only the lives of those it serves but also the broader societal attitudes toward homelessness—shifting from indifference to genuine care and proactive engagement.
+        Be a part of this change and register to be a mentor today. If you are a prospective mentee, get started and create a profile to start on your journey to success.
+        </p>
         </div>
-        <p>or Sign up as:</p>
-        <div className={styles.signup}>
-        <button className={styles.mentor__button__signup}>Mentor</button>
-        <div className={styles.gap}/>
-        <button className={styles.mentee__button__signup}>Mentee</button>
         </div>
-    </section>
+        </div>
+    
     <section className={styles.icons}>
       <div className={styles.donation__btn}>
         <img src="/heartinhand.png" alt="Heart Icon"/>
@@ -58,26 +74,9 @@ export default function LandingPage() {
       </div>
     </section>
 
-    <section className={styles.preview}>
-      <h2>Preview Mentee Profiles</h2>
-      <div className="profile-slider">
-        <div className={styles.jack}>
-          <img src="/homelessman2.jpg" alt="Jack's profile picture"/>
-          <h4>Jack</h4>
-          <p>"Hey! I'm Jack. I used to work in construction and I'm interested in working again!"</p>
-        </div>
-        <div className={styles.gracienne}>
-          <img src="/homelesswoman1.jpg" alt="Gracienne's profile picture"/>
-          <h4>Gracienne</h4>
-          <p>"Hi I'm Gracienne. I like to draw and I love listening to hip-hop."</p>
-        </div>
-        <div className={styles.billy}>
-          <img src="/homelessman1.jpg" alt="Billy's profile picture"/>
-          <h4>Billy</h4>
-          <p>"Hi I'm Billy. I love creating art and supporting my community."</p>
-        </div>
-      </div>
-    </section>
+<div>
+
+</div>
   </main>
 </>
 
