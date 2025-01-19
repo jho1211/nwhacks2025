@@ -9,33 +9,47 @@ import axios from "@/app/utils/axios_instance";
 import GalleryItem from "../components/GalleryItem/GalleryItem";
 import "./styles.css"
 import Navbar from "../components/Navbar/Navbar";
+import { AxiosResponse } from "axios";
 
 export default function ConnectPage() {
     const router = useRouter();
     const auth = getAuth(firebaseApp);
-    const [mentees, setMentees] = useState<User[]>([]);
+    const [people, setPeople] = useState<User[]>([]);
+    const [uid, setUid] = useState<string>();
+    const [user, setUser] = useState<User>();
 
     onAuthStateChanged(auth, (user) => {
         if (!user) {
-            alert("You need to be logged in to access this page.")
             router.push("/");
+            return (<div>You need to be logged in to access this page.</div>)
+        } else {
+            setUid(user.uid);
         }
-        return (<div>You need to be logged in to access this page.</div>)
     })
 
     useEffect(() => {
-        axios.get<User[]>('mentees')
-        .then(resp => setMentees(resp.data))
-        .catch(err => alert("Error obtaining mentees"));
-    }, [])
+        if (uid) {
+            axios.get<User>(`user/${uid}`).then(resp => setUser(resp.data));
+        }
+    }, [uid])
 
-    const galleryItems = mentees.map((mentee: User, idx) => <GalleryItem key={idx} user={mentee}></GalleryItem>)
+    useEffect(() => {
+        if (!user) {
+            return;
+        }
+        const target = user.role == "mentee" ? "mentors" : "mentees";
+        axios.get<User[]>(target)
+        .then(resp => setPeople(resp.data))
+        .catch(err => alert(`Error obtaining ${target}`));
+    }, [user])
+
+    const galleryItems = people.map((mentee: User, idx) => <GalleryItem key={idx} user={mentee}></GalleryItem>)
 
     return (
         <div>
             <Navbar bgColor="#FFCE9DAD"></Navbar>
             <div className="gallery-page">
-                <div className="gallery-title">Profiles</div>
+                <div className="gallery-title">{user?.role == "mentee" ? "Mentor" : "Mentee"} Profiles</div>
                 <div className="gallery-container">
                     {galleryItems}
                 </div>
