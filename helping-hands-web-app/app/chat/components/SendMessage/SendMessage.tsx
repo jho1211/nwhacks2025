@@ -33,6 +33,8 @@ const SendMessage = ({
     const user = await axios.get<User>(`user/${uid}`);
     // .then((resp) => resp.data);
 
+    console.log(user.data.uid, "here");
+
     if (!user) {
       throw Error("ooopppppsss");
     }
@@ -41,7 +43,7 @@ const SendMessage = ({
       content: message,
       name: user.data.name,
       timestamp: serverTimestamp(),
-      senderId: user.data.uid,
+      sender_id: user.data.uid,
       status: "delivered",
     });
 

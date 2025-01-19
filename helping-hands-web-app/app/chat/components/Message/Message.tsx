@@ -4,7 +4,7 @@ import Image from "next/image";
 import styles from "./message.module.css";
 
 const user: User = {
-  uid: "1",
+  uid: "KTjZXDOfPvc1xxlY1aTVLMInvAk2",
   first_name: "Test",
   last_name: "Test",
   bio: "foo",
