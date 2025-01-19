@@ -73,7 +73,7 @@ export const getConnections = async (req, res) => {
           message: `User with UID ${uid} has no connections.`,
         });
     } else {
-        const connectionJson = connection.docs.map(doc => doc.data())[0];
+        const connectionJson = connection.docs.map(doc => doc.data());
         return res.status(200).json(connectionJson);
     }
 };
