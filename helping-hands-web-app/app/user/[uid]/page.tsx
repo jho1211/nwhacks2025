@@ -9,6 +9,7 @@ import "./styles.css";
 import {v4 as uuidv4} from 'uuid';
 import { firebaseApp } from "@/lib/firebase/clientApp";
 import { AxiosError } from 'axios';
+import Navbar from '@/app/components/Navbar/Navbar';
 
 export default function ProfilePage({params}: {params: Promise<{ uid: string }>}) {
     const uid = use(params).uid;
@@ -69,43 +70,46 @@ export default function ProfilePage({params}: {params: Promise<{ uid: string }>}
     }
 
     return (
-        <div className="profile-container">
-            {errorMsg == "" ? null : <div>{errorMsg}</div>}
-            <div className="image-separator">
-                <div style={{paddingRight: "50px"}}>
-                    <img src={user?.profile_img} className="profile-img"></img>
-                    <h1 className="name-tag">{user?.name}</h1>
+        <div>
+            <Navbar bgColor="#FFCE9DAD" uid={curUid ? curUid.current : ""}></Navbar>
+            <div className="profile-container">
+                {errorMsg == "" ? null : <div>{errorMsg}</div>}
+                <div className="image-separator">
+                    <div style={{paddingRight: "50px"}}>
+                        <img src={user?.profile_img} className="profile-img"></img>
+                        <h1 className="name-tag">{user?.name}</h1>
+                    </div>
+                    <div className="bio">
+                        <h2>Bio</h2>
+                        <div>{user?.bio}</div>
+                    </div>
                 </div>
-                <div className="bio">
-                    <h2>Bio</h2>
-                    <div>{user?.bio}</div>
-                </div>
+                {user?.role == "mentee" ? <div>
+                    <table className="wishlist-table">
+                        <thead>
+                            <tr>
+                                <td>Item Name</td>
+                                <td>Item URL</td>
+                                <td>Priority</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {wishlist?.wishlist.map(
+                                (wlItem: Wish, idx: number) => {
+                                    return (
+                                    <tr key={`row-${idx}`}>
+                                        <td key={`name-${idx}`}>{wlItem.item_name}</td>
+                                        <td key={`url-${idx}`}>
+                                            <a className="item-link" href={wlItem.url}>{wlItem.url}</a>
+                                        </td>
+                                        <td key={`pri-${idx}`}>{wlItem.priority}</td></tr>)
+                                }
+                            )}
+                        </tbody>
+                    </table>
+                </div> : null}
+                <button className="connect-button" onClick={handleConnect}>CONNECT WITH {user?.name}</button>
             </div>
-            {user?.role == "mentee" ? <div>
-                <table className="wishlist-table">
-                    <thead>
-                        <tr>
-                            <td>Item Name</td>
-                            <td>Item URL</td>
-                            <td>Priority</td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {wishlist?.wishlist.map(
-                            (wlItem: Wish, idx: number) => {
-                                return (
-                                <tr key={`row-${idx}`}>
-                                    <td key={`name-${idx}`}>{wlItem.item_name}</td>
-                                    <td key={`url-${idx}`}>
-                                        <a className="item-link" href={wlItem.url}>{wlItem.url}</a>
-                                    </td>
-                                    <td key={`pri-${idx}`}>{wlItem.priority}</td></tr>)
-                            }
-                        )}
-                    </tbody>
-                </table>
-            </div> : null}
-            <button className="connect-button" onClick={handleConnect}>CONNECT WITH {user?.name}</button>
         </div>
-    )
-}
+        )
+    }

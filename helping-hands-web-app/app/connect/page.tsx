@@ -46,7 +46,7 @@ export default function ConnectPage() {
 
     return (
         <div>
-            <Navbar bgColor="#FFCE9DAD"></Navbar>
+            <Navbar bgColor="#FFCE9DAD" uid={uid ?? ""}></Navbar>
             <div className="gallery-page">
                 {user ? <div className="gallery-title">{user?.role == "mentee" ? "Mentor" : "Mentee"} Profiles</div> : <div>Loading...</div>}
                 <div className="gallery-container">

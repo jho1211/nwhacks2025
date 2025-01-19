@@ -1,11 +1,22 @@
+"use client"
+
 import styles from "./style.module.css"
-import Link from 'next/link'
 import Navbar from "./components/Navbar/Navbar"
+import { auth } from "@/lib/firebase/clientApp";
+import { onAuthStateChanged } from "firebase/auth";
+import { useState } from "react";
 
 export default function LandingPage() {
- return(
+  const [uid, setUid] = useState<string>();
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) setUid(user.uid);
+    else setUid("");
+  })
+
+ return (
     <>
-    <Navbar bgColor="transparent"></Navbar>
+    <Navbar bgColor="transparent" uid={uid ?? ""}></Navbar>
     <div className={styles.main__picture}>
         <img src="/hugging_official.jpg" alt="Main Picture"/>
     </div>
