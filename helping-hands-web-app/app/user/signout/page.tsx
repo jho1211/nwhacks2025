@@ -9,10 +9,10 @@ export default function Signout() {
 
     const auth = getAuth(firebaseApp);
     signOut(auth).then(() => {
-        router.push("/home");
+        router.push("/");
     }).catch((error) => {
         console.error("Couldn't signout");
     });
-    
+
     return (<div>Signing out...</div>)
 }
