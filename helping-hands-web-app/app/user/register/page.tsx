@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import "./styles.css";
+import { User } from "@/app/models/models";
 
 export default function Register() {
     const [email, setEmail] = useState<string>("");
@@ -13,11 +14,18 @@ export default function Register() {
     const [pwAlert, setPwAlert] = useState<string>("");
     const [error, setError] = useState<string>("");
     const [confirmPwAlert, setConfirmPwAlert] = useState<string>("");
+    const [name, setName] = useState<string>("");
     const [bio, setBio] = useState<string>("");
-    const [photoUrl, setPhotoUrl] = useState<string>("");
+    const [photoAlert, setPhotoAlert] = useState<string>("");
+    const [image, setImage] = useState<HTMLImageElement>();
+    const [role, setRole] = useState<string>("mentee");
 
     const router = useRouter();
     const minPasswordLength : number = 6;
+    const maxImageSize = 5 * 1024 * 1024;
+    const newWidth = 100;
+    const newHeight = 100;
+    const imgType = "image/jpeg";
 
     async function handleSubmit(event: any) {
         event.preventDefault();
@@ -30,10 +38,33 @@ export default function Register() {
 
         createUserWithEmailAndPassword(getAuth(firebaseApp), email, password)
         .then(user => {
-            console.log("Created a new account successfully, logging in...");
-            router.push("user/login");
+            const userData : User = {
+                uid: user.user.uid,
+                name: name,
+                bio: bio,
+                profile_img: image!.src,
+                role: role
+            };
+            initializeUser(userData);
+            // router.push("user/login");
         })
         .catch(err => setError(err.message));
+    }
+
+    async function initializeUser(user: User) {
+        JSON.stringify(user);
+        fetch(`${process.env.API_URL}/api/user`, {
+            method: "POST",
+            body: JSON.stringify(user)
+        }).then(resp => {
+            if (resp.ok) {
+                return;
+            } else {
+                return resp.json();
+            }
+        }).then(resp => {
+            throw resp;
+        }).catch(err => console.error(err));
     }
 
     const handlePassword = (e: any) => {
@@ -51,24 +82,75 @@ export default function Register() {
         setPassword(e.target.value);
     };
 
-    const handleImageUpload = (e: Event) => {
-        const target : HTMLInputElement = e.target as HTMLInputElement;
+    const handleImageUpload = (e: any) => {
+        const target = e.target;
         if (target.files && target.files!.length > 0) {
-            const imgFile = target.files[0]
+            const imgFile: File = target.files[0]
+            try {
+                readImage(imgFile);
+            } catch (e: any) {
+                setPhotoAlert(e.message);
+            }
+        } else {
+            return;
         }
+    }
+    
+    const reformatImage = (img: HTMLImageElement): string => {
+        const canvas = document.createElement("canvas");
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+        canvas.getContext('2d')!.drawImage(img, 0, 0, newWidth, newHeight);
+        
+        return canvas.toDataURL(imgType);
+    }
+
+    const createImage = (src: any) => {
+        const image = new Image();
+        image.height = newHeight;
+        image.width = newWidth;
+        image.src = src;
+    
+        return image;
+    }
+    
+    const readImage = (f: File) => {    
+        if (f.size > maxImageSize) {
+            console.error("Image is too large");
+            throw new Error("Image is too large");
+        }
+    
+        const fr = new FileReader();
+        fr.onload = () => {
+            const img = createImage(fr.result);
+            const newImgUrl = reformatImage(img);
+            const newImg = createImage(newImgUrl);
+            setImage(newImg);
+        }
+        fr.readAsDataURL(f);
     }
 
     return (<div className="signup-container">
                 <h1>Create an Account</h1>
                 {error == "" ? null : <div>{error}</div>}
                 <form className="register-form" onSubmit={handleSubmit}>
+                    <div className="switch-labels">
+                        <div className="slider-label">Mentor</div>
+                        <label className="switch">
+                            <input type="checkbox"></input>
+                            <span className="slider round"></span>
+                        </label>
+                        <div className="slider-label">Mentee</div>
+                    </div>
+                    
                     <div className="input-group">
                         <label htmlFor="emailInput">Email</label>
                         <input 
                             type="email" 
                             id="emailInput" 
                             value={email} 
-                            onChange={(e) => setEmail(e.target.value)}>
+                            onChange={(e) => setEmail(e.target.value)}
+                            required={true}>
                         </input>
                     </div>
                     <div className="input-group">
@@ -78,7 +160,8 @@ export default function Register() {
                         type="password" 
                         id="pwInput" 
                         value={password} 
-                        onChange={handlePassword}>
+                        onChange={handlePassword}
+                        required={true}>
                         </input>
                     </div>
                     <div className="input-group">
@@ -88,8 +171,13 @@ export default function Register() {
                         type="password" 
                         id="confirmPwInput" 
                         value={confirmPw} 
-                        onChange={(e) => setConfirmPw(e.target.value)}>
+                        onChange={(e) => setConfirmPw(e.target.value)}
+                        required={true}>
                         </input>
+                    </div>
+                    <div className="input-group">
+                        <label htmlFor="nameInput">Name</label>
+                        <input type="text" id="nameInput" value={name} onChange={(e) => setName(e.target.value)} required={true}></input>
                     </div>
                     <div className="input-group">
                         <label htmlFor="bioInput">Bio</label>
@@ -101,9 +189,10 @@ export default function Register() {
                         </textarea>
                     </div>
                     <div className="input-group">
+                        {photoAlert == "" ? null : <label htmlFor="imageInput">{photoAlert}</label>}
                         <label htmlFor="imageInput">Profile Picture</label>
-                        <input type="file" accept="image/*"></input>
-                        <img src={photoUrl == "" ? undefined : photoUrl} width={100} height={100}></img>
+                        <input type="file" accept="image/*" onChange={handleImageUpload} required={true}></input>
+                        <img src={image == undefined ? undefined : image.src} width={100} height={100}></img>
                     </div>
                     <button type="submit" className="create-button">Create Account</button>
                 </form>
