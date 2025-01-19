@@ -8,7 +8,6 @@ const connectionsRef = db.collection("connections");
 
 // Get user information from database
 export const getUserInfo = async (req, res) => {
-
     const uid = req.params.uid;
     const user = await usersRef
                     .where("uid", "==", uid)
@@ -17,7 +16,7 @@ export const getUserInfo = async (req, res) => {
     if (user.empty) {
         return res.status(404).json({ message: `User with UID ${uid} not found` });
     } else {
-        const userJson = user.docs.map(doc => doc.data());
+        const userJson = user.docs.map(doc => doc.data())[0];
         return res.status(200).json(userJson);
     }
 };
@@ -77,7 +76,8 @@ export const getUserInfo = async (req, res) => {
 // Add new user to database
 export const addUser = async (req, res) => {
     const user = req.body
-  
+    console.log(user);
+
     if (!user.uid || !user.name || !user.role) {
       return res.status(400).json({
         message: "Missing required fields: uid / name / role"
