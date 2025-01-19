@@ -54,8 +54,7 @@ export default function Register() {
     }
 
     async function initializeUser(user: User) {
-        console.log(JSON.stringify(user))
-        axios.post("user", JSON.stringify(user))
+        axios.post("user", user)
         .then(resp => console.log(resp))
         .catch(err => setError(err.message));
     }
