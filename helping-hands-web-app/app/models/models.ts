@@ -19,18 +19,18 @@ export interface Wishlist {
 
 export interface Message {
     id: string,
-    sender_id: string,
+    senderId: string,
     status: string,
     content: string,
     timestamp: Date,
-    receiver_id: string
+    receiverId: string
 }
 
 export interface Connection {
     id: string,
-    participants: User[],
+    participants: string[],
     status: string,
-    messages_id: string
+    messagesId: string
 }
 
 export interface Messages {

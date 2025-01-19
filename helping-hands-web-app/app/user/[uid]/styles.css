@@ -1,8 +1,78 @@
-table, th, td {
+table, thead, td {
     border: 1px solid;
     border-collapse: collapse;
+    padding: 5px;
 }
 
-th {
-    font-size: 1.2rem;
+table.wishlist-table {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+thead {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.connect-button {
+    background-color: #f17216;
+    color: white;
+    width: 560px;
+    height: 105px;
+    text-transform: uppercase;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.connect-button:hover {
+    background-color: #ca5d0f;
+    cursor: pointer;
+}
+
+.profile-container {
+    width: 1431px;
+    height: 700px;
+    top: 348px;
+    left: 54px;
+    gap: 0px;
+    border-radius: 20px 0px 0px 0px;
+    border: 3px 0px 0px 0px;
+    opacity: 0px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    display: flex;
+}
+
+.profile-img {
+    width: 310px;
+    height: 310px;
+    gap: 0px;
+    border-radius: 50%;
+    opacity: 0px;
+}
+
+.image-separator {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.name-tag {
+    display: flex;
+    justify-content: center;
+}
+
+.item-link {
+    color: blue;
+}
+
+.bio {
+    width: 952px;
+    height: 440px;
+    gap: 0px;
+    border-radius: 20px 0px 0px 0px;
+    opacity: 0px;
+    background-color: #FFCE9DAD;
+    padding: 50px;
 }
