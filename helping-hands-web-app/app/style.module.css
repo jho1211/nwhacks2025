@@ -65,7 +65,7 @@
 
 .navbar__item {
     margin: 0px 20px;
-    font-size: 40px; 
+    font-size: 30px; 
 }
 
 .navbar__links {
@@ -90,7 +90,7 @@
     width: 100%;
 
     font-family: Ubuntu;
-    font-size: 30px;
+    font-size: 20px;
     font-weight: 700;
     line-height: 34.47px;
     text-align: left;
@@ -128,19 +128,39 @@
     border: 2px solid black;
     border-color: black; 
     text-align: center;
+    display: flex; 
+    align-items: center; 
+    flex-direction: column;
     width: 100%;
-    height: 900px; 
-    font-size: 40px; 
+    height: 475px; 
+    font-size: 25px; 
+    line-height: 1.5;
 }
 
 .main__picture img {
-    position: absolute;
+    position: absolute; /* allows image to underlay and fill as a background */ 
     width: 100%;
-    height: 1250px; 
+    height: 100%; 
     top: 0px;
     opacity: 0.3;
     object-fit: fill; 
     overflow: hidden; /* This hides the parts of the image outside the container */
+}
+
+.missions__box {
+    width: 1500px; 
+    height: 700px;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    justify-content: center; 
+    padding: 4rem 4rem;
+    background-color: #ffb777;
+    border: #ffb777; 
+    border-radius: 20px; 
+    font-size: 22px;
+    line-height: 1.5;
+    text-align: center;
 }
 
 .signin {
@@ -153,7 +173,10 @@
     margin: 2rem; 
     display: inline;
 }
-
+.gap__big {
+    margin: 10rem; 
+    display: inline; 
+}
 .mentor__button__signin {
     font-size: 40px;
     padding: 2 2rem;
@@ -202,13 +225,14 @@
     padding: 2rem 2rem;
     background-color: white;
     justify-content: center;
-    text-align: center;
-    font-size: 40px; 
+    text-align: center; 
+    font-size: 30px; 
+    width: 500px; 
 }
 
 .donation__btn img {
-    width: 500px;
-    height: 500px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     background-color: #ffb777;
 }
@@ -219,12 +243,13 @@
     background-color: white;
     justify-content: center;
     text-align: center;
-    font-size: 40px; 
+    font-size: 30px; 
+    width: 500px; 
 }
 
 .profiles__btn img {
-    width: 500px;
-    height: 500px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     background-color: #ffb777;
 }
@@ -235,12 +260,13 @@
     background-color: white;
     justify-content: center;
     text-align: center;
-    font-size: 40px; 
+    font-size: 30px; 
+    width: 500px; 
 }
 
 .testimonies__btn img {
-    width: 500px;
-    height: 500px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     background-color: #ffb777;
 }
@@ -249,15 +275,4 @@
     display: flex; /*  can put elements next to each other*/
     flex-direction: row; 
     align-items: center;
-}
-
-.jack img {
-    width: 300px;
-    height: 200px; 
-}
-
-.jack {
-    text-align: center;
-    font-size: 30px;
-    width: 300px;
 }

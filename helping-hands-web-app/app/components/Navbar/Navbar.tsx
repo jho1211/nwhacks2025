@@ -15,11 +15,7 @@ export default function Navbar(props: {bgColor: string, uid: string}) {
                     Home
                     </a>
                 </li>
-                <li className={styles.navbar__item}>
-                    <a href="/tech.html" className="navbar__links">
-                    About
-                    </a>
-                </li>
+                
                 <li className={styles.navbar__item}>
                     <a href="/connect" className="navbar__links">
                     Profiles
