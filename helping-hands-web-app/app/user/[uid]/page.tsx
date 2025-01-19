@@ -31,12 +31,17 @@ export default function ProfilePage({params}: {params: Promise<{ uid: string }>}
     }, [user])
 
     return (
-        <div>
+        <div className="profile-container">
             {errorMsg == "" ? null : <div>{errorMsg}</div>}
-            <div>
-                <img src={user?.profile_img} width={100} height={100}></img>
-                <div>{user?.name}</div>
-                <div>{user?.bio}</div>
+            <div className="image-separator">
+                <div style={{paddingRight: "50px"}}>
+                    <img src={user?.profile_img} className="profile-img"></img>
+                    <h1 className="name-tag">{user?.name}</h1>
+                </div>
+                <div className="bio">
+                    <h2>Bio</h2>
+                    <div>{user?.bio}</div>
+                </div>
             </div>
             {user?.role == "mentee" ? <div>
                 <table className="wishlist-table">
@@ -53,13 +58,16 @@ export default function ProfilePage({params}: {params: Promise<{ uid: string }>}
                                 return (
                                 <tr key={`row-${idx}`}>
                                     <td key={`name-${idx}`}>{wlItem.item_name}</td>
-                                    <td key={`url-${idx}`}>{wlItem.url}</td>
+                                    <td key={`url-${idx}`}>
+                                        <a className="item-link" href={wlItem.url}>{wlItem.url}</a>
+                                    </td>
                                     <td key={`pri-${idx}`}>{wlItem.priority}</td></tr>)
                             }
                         )}
                     </tbody>
                 </table>
             </div> : null}
+            <button className="connect-button">CONNECT WITH {user?.name}</button>
         </div>
     )
 }
