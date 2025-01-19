@@ -42,6 +42,6 @@ app.get('/api/user/:uid', getUserInfo);
 // // DELETE route to remove the connections list for a user from database
 // app.delete('/api/connections/:uid', fetchHandlers.removeConnectionsList);
 
-app.listen(80, function () {
-  console.log('CORS-enabled web server listening on port 80')
+app.listen(8080, function () {
+  console.log('CORS-enabled web server listening on port 8080')
 })
