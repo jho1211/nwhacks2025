@@ -3,13 +3,12 @@
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { User } from "../models/models";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { firebaseApp } from "@/lib/firebase/clientApp";
 import axios from "@/app/utils/axios_instance";
 import GalleryItem from "../components/GalleryItem/GalleryItem";
 import "./styles.css"
 import Navbar from "../components/Navbar/Navbar";
-import { AxiosResponse } from "axios";
 
 export default function ConnectPage() {
     const router = useRouter();
@@ -49,7 +48,7 @@ export default function ConnectPage() {
         <div>
             <Navbar bgColor="#FFCE9DAD"></Navbar>
             <div className="gallery-page">
-                <div className="gallery-title">{user?.role == "mentee" ? "Mentor" : "Mentee"} Profiles</div>
+                {user ? <div className="gallery-title">{user?.role == "mentee" ? "Mentor" : "Mentee"} Profiles</div> : <div>Loading...</div>}
                 <div className="gallery-container">
                     {galleryItems}
                 </div>
