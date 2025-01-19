@@ -1,0 +1,60 @@
+.gallery-card {
+    width: 350px;
+    height: 450px;
+    gap: 0px;
+    border-radius: 56.28px;
+    opacity: 0px;
+    border: 2px solid #282C4B;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.gallery-profile-img {
+    width: 271px;
+    height: 193px;
+    gap: 0px;
+    border-radius: 30px;
+    opacity: 0px;
+}
+
+.gallery-profile-name {
+    font-family: Inter;
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 30.26px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+
+.gallery-profile-bio {
+    margin-top: 10px;
+    width: 271px;
+    height: 99px;
+    text-overflow: ellipsis;
+    font-family: Inter;
+    font-size: 25px;
+    font-weight: 400;
+    line-height: 30.26px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+
+.gallery-view-btn {
+    width: 120px;
+    height: 58px;
+    gap: 0px;
+    border-radius: 30px;
+    opacity: 0px;
+    background-color: #FFB265;
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.gallery-view-btn:hover {
+    background-color: #d57b22;
+    cursor: pointer;
+}
