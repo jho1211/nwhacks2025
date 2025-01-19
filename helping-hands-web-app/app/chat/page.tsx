@@ -1,12 +1,59 @@
 "use client";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
+import {
+  query,
+  collection,
+  orderBy,
+  onSnapshot,
+  limit,
+} from "firebase/firestore";
+import { type Message as MessageType } from "../models/models";
 import styles from "./chat.module.css";
 import Image from "next/image";
 import SendMessage from "./components/SendMessage/SendMessage";
 import { MESSAGES_1 } from "./mock";
+import { db } from "@/lib/firebase/clientApp";
+
 import Message from "./components/Message/Message";
 export default function ChatPage() {
+  const [messages, setMessages] = useState<MessageType[]>([]);
   const scroll = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    const q = query(
+      collection(db, "messages"),
+      orderBy("timestamp", "desc"),
+      limit(50)
+    );
+
+    const unsubscribe = onSnapshot(q, (QuerySnapshot) => {
+      const fetchedMessages: MessageType[] = [];
+
+      QuerySnapshot.forEach((doc) => {
+        const data = doc.data();
+        // Type assertion or validation
+        const message: MessageType = {
+          id: doc.id,
+          content: data.content,
+          status: data.status,
+          timestamp: data.timestamp,
+          sender_id: data.sender_id,
+          receiver_id: data.receiver_id,
+        };
+        fetchedMessages.push(message);
+      });
+
+      const sortedMessages = fetchedMessages.sort(
+        (a, b) => a.timestamp - b.timestamp
+      );
+      setMessages(sortedMessages);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  console.log({ messages });
+
   return (
     <div className={styles.chatbox}>
       <div className={styles.header}>
@@ -19,7 +66,7 @@ export default function ChatPage() {
         />
       </div>
       <div className={styles.messages}>
-        {MESSAGES_1.messages.map((message) => (
+        {messages.map((message) => (
           <Message key={message.id} message={message} />
         ))}
       </div>

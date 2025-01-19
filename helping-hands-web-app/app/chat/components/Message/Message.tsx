@@ -1,5 +1,5 @@
 import React from "react";
-import { Message } from "@/app/models/user";
+import { type Message } from "@/app/models/models";
 import Image from "next/image";
 import styles from "./message.module.css";
 
