@@ -1,6 +1,6 @@
 "use client"
 
-import { firebaseApp } from "../../../lib/firebase/clientApp";
+import { firebaseApp } from "@/lib/firebase/clientApp";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
@@ -12,11 +12,21 @@ export default function Register() {
     const [error, setError] = useState<string>("");
     const router = useRouter();
 
+    const auth = getAuth(firebaseApp);
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            router.push("/home");
+        } else {
+            return;
+        }
+      });
+
     async function handleSubmit(event: any) {
         event.preventDefault();
         setError("");
 
-        signInWithEmailAndPassword(getAuth(firebaseApp), email, password)
+        signInWithEmailAndPassword(auth, email, password)
         .then(user => {
             const uid = user.user.uid;
             console.log(`Your uid is: ${uid}`);
