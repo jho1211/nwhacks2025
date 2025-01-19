@@ -13,10 +13,13 @@ import { type Message as MessageType } from "../../models/models";
 import styles from "../chat.module.css";
 import Image from "next/image";
 import SendMessage from "../components/SendMessage/SendMessage";
-import { db } from "@/lib/firebase/clientApp";
-import { userStore } from "@/store/user";
+import { auth, db } from "@/lib/firebase/clientApp";
+import { useRouter } from "next/navigation";
+import { User } from "../../models/models";
+import axios from "@/app/utils/axios_instance";
 
 import Message from "../components/Message/Message";
+import { onAuthStateChanged } from "firebase/auth";
 export default function ChatPage({
   params,
 }: {
@@ -28,7 +31,24 @@ export default function ChatPage({
   const scroll = useRef<HTMLSpanElement>(null);
   const searchParams = useSearchParams();
   const name = searchParams.get("user");
-  const user = userStore((state) => state.user);
+  const [user, setUser] = useState<User>();
+  const [uid, setUid] = useState<string>();
+  const router = useRouter();
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) {
+        router.push("/user/signin");
+        return (<div>You need to be logged in to access this page.</div>)
+    } else {
+        setUid(user.uid);
+    }
+  })
+
+  useEffect(() => {
+      if (uid) {
+          axios.get<User>(`user/${uid}`).then(resp => setUser(resp.data));
+      }
+  }, [uid])
 
   useEffect(() => {
     const q = query(
@@ -76,14 +96,14 @@ export default function ChatPage({
         />
       </div>
       <div className={styles.messages}>
-        {messages.map((message) => (
+        {user ? messages.map((message) => (
           <Message
             key={message.id}
             message={message}
             // make it better if I have time
-            uid={user!.uid}
+            uid={user?.uid}
           />
-        ))}
+        )) : null}
       </div>
       {/* when a new message enters the chat, the screen scrolls down to the scroll div */}
       <span ref={scroll}></span>

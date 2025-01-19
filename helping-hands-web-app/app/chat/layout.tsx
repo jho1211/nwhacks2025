@@ -70,16 +70,6 @@ export default function ChatLayout({
     }
   }, [auth, uid]);
 
-  useEffect(() => {
-    async function getUser() {
-      const userData = await axios.get<User>(`user/${uid}`);
-      setUser(userData.data);
-    }
-    if (uid && user == null) {
-      getUser();
-    }
-  }, [uid, user]);
-
   return (
     <div className={styles.container}>
       <nav className={styles.nav}>
