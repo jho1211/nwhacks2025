@@ -1,13 +1,14 @@
 "use client"
 
 import { useRouter } from 'next/navigation'
-import { useState, useEffect, use } from "react";
+import { useState, useEffect, use, useRef } from "react";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { User, Wishlist, Wish, Connection } from '@/app/models/models';
 import axios from "@/app/utils/axios_instance";
 import "./styles.css";
 import {v4 as uuidv4} from 'uuid';
 import { firebaseApp } from "@/lib/firebase/clientApp";
+import { AxiosError } from 'axios';
 
 export default function ProfilePage({params}: {params: Promise<{ uid: string }>}) {
     const uid = use(params).uid;
@@ -16,11 +17,11 @@ export default function ProfilePage({params}: {params: Promise<{ uid: string }>}
     const [wishlist, setWishlist] = useState<Wishlist>();
     const auth = getAuth(firebaseApp);
     const router = useRouter();
-    const [curUid, setCurUid] = useState<string>("");
+    const curUid = useRef<string>("");
     
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            setCurUid(user.uid)
+            curUid.current = user.uid;
         } else {
             router.push("/user/signin")
             return (<div>You need to be logged in to access this page.</div>)
@@ -48,17 +49,21 @@ export default function ProfilePage({params}: {params: Promise<{ uid: string }>}
         if (curUid && user) {
             const connection : Connection = {
                 id: uuidv4(),
-                participants: [curUid, user.uid],
+                participants: [curUid.current, user.uid],
                 status: "pending",
                 messagesId: uuidv4()
             }
             axios.post("connections", connection)
             .then(resp => {
                 if (resp.status == 400) {
+                    console.log(resp.data);
                     setErrorMsg(resp.data.message);
                 } else {
                     alert(`You have sent a connection request to ${user.name}`);
                 }
+            }).catch((err: AxiosError) => {
+                console.log(err);
+                alert(`Connection request error: ${(err.response!.data as {message: string}).message as string}`);
             })
         }
     }
