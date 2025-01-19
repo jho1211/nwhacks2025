@@ -35,14 +35,16 @@ export default function ChatPage({
   const [uid, setUid] = useState<string>();
   const router = useRouter();
 
-  onAuthStateChanged(auth, (user) => {
-    if (!user) {
-        router.push("/user/signin");
-        return (<div>You need to be logged in to access this page.</div>)
-    } else {
-        setUid(user.uid);
-    }
-  })
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (!user) {
+          router.push("/user/signin");
+          return (<div>You need to be logged in to access this page.</div>)
+      } else {
+          setUid(user.uid);
+      }
+    })
+  }, []);
 
   useEffect(() => {
       if (uid) {
