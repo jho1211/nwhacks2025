@@ -1,0 +1,28 @@
+.message {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 15px;
+}
+
+.sender {
+  justify-content: left;
+}
+
+.receiver {
+  justify-content: right;
+  flex-direction: row-reverse;
+}
+
+.text {
+  padding: 15px;
+  border-radius: 20px;
+}
+
+.sender p {
+  background-color: var(--tertiary);
+}
+
+.receiver p {
+  background-color: var(--background);
+}
