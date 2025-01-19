@@ -1,5 +1,5 @@
-var express = require('express')
-var cors = require('cors')
+import express from 'express'
+import cors from 'cors'
 var app = express()
  
 app.use(cors())

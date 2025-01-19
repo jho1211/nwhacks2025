@@ -1,9 +1,9 @@
 import { firebase, db } from './serverApp.js'
 import { collection, query, where, getDocs } from 'firebase/firestore';
 
-const usersRef = collection(db, "users");
-const wishlistsRef = collection(db, "wishlists");
-const connectionsRef = collection(db, "connections");
+// const usersRef = collection(db, "users");
+// const wishlistsRef = collection(db, "wishlists");
+// const connectionsRef = collection(db, "connections");
 
 
 // Get user information from database
