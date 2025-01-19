@@ -11,7 +11,6 @@ import {
 } from "firebase/firestore";
 import { type Message as MessageType } from "../../models/models";
 import styles from "../chat.module.css";
-import Image from "next/image";
 import SendMessage from "../components/SendMessage/SendMessage";
 import { auth, db } from "@/lib/firebase/clientApp";
 import { useRouter } from "next/navigation";
@@ -30,8 +29,9 @@ export default function ChatPage({
   const [messages, setMessages] = useState<MessageType[]>([]);
   const scroll = useRef<HTMLSpanElement>(null);
   const searchParams = useSearchParams();
-  const name = searchParams.get("user");
+  const otherUid = searchParams.get("userId");
   const [user, setUser] = useState<User>();
+  const [otherUser, setOtherUser] = useState<User>();
   const [uid, setUid] = useState<string>();
   const router = useRouter();
 
@@ -49,6 +49,12 @@ export default function ChatPage({
           axios.get<User>(`user/${uid}`).then(resp => setUser(resp.data));
       }
   }, [uid])
+
+  useEffect(() => {
+    if (otherUid) {
+      axios.get<User>(`user/${otherUid}`).then(resp => setOtherUser(resp.data));
+    }
+  }, [otherUid])
 
   useEffect(() => {
     const q = query(
@@ -87,20 +93,21 @@ export default function ChatPage({
   return (
     <div className={styles.chatbox}>
       <div className={styles.header}>
-        {name}
-        <Image
-          src="https://placehold.co/400/"
-          alt="Jack"
+        {otherUser ? <>
+        {otherUser.name}
+        <img
+          src={otherUser.profile_img}
+          alt={otherUser?.name}
           width={50}
           height={50}
         />
+        </> : null}
       </div>
       <div className={styles.messages}>
         {user ? messages.map((message) => (
           <Message
             key={message.id}
             message={message}
-            // make it better if I have time
             uid={user?.uid}
           />
         )) : null}
