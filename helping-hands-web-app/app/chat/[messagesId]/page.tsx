@@ -86,7 +86,7 @@ export default function ChatPage({
       //   const sortedMessages = fetchedMessages.sort(
       //     (a, b) => a.timestamp - b.timestamp
       //   );
-      setMessages(fetchedMessages);
+      setMessages(fetchedMessages.reverse());
     });
 
     return () => unsubscribe();
