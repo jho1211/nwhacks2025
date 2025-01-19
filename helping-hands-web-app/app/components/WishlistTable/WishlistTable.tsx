@@ -1,4 +1,5 @@
 import { Wishlist, Wish } from "@/app/models/models"
+import { useRouter } from "next/navigation";
 import axios from "@/app/utils/axios_instance";
 import "./styles.css"
 import { useState } from "react";
@@ -7,6 +8,7 @@ export default function WishlistTable(props: {wishlist: Wishlist | undefined, ca
     const [itemName, setItemName] = useState<string>("");
     const [itemUrl, setItemUrl] = useState<string>("");
     const [priority, setPriority] = useState<number>(1);
+    const router = useRouter();
 
     const handleDeleteItem = (item_name: string) => {
         if (!props.wishlist) return;
@@ -21,6 +23,7 @@ export default function WishlistTable(props: {wishlist: Wishlist | undefined, ca
         .then(resp => {
             props.wishlist = newWishlist;
             alert("Successfully removed wishlist item");
+            router.refresh();
         })
         .catch(err => console.log(err));
     }
@@ -42,6 +45,7 @@ export default function WishlistTable(props: {wishlist: Wishlist | undefined, ca
             .then(resp => {
                 props.wishlist = newWishlist;
                 alert("Successfully added wishlist item")
+                router.refresh();
             })
             .catch(err => console.log(err));
         }
@@ -74,9 +78,9 @@ export default function WishlistTable(props: {wishlist: Wishlist | undefined, ca
         {props.canEdit ? 
         <tfoot>
             <tr>
-                <td><input type="text" placeholder="Item Name" value={itemName} onChange={(e) => setItemName(e.target.value)}></input></td>
-                <td><input type="text" placeholder="URL" onChange={(e) => setItemUrl(e.target.value)}></input></td>
-                <td><input type="number" placeholder="Priority" min={1} max={10} onChange={(e) => setPriority(parseInt(e.target.value))}></input></td>
+                <td><input type="text" placeholder="Item Name" value={itemName} onChange={(e) => setItemName(e.target.value)} style={{width: "100%"}}></input></td>
+                <td><input type="text" placeholder="URL" onChange={(e) => setItemUrl(e.target.value)} style={{width: "100%"}}></input></td>
+                <td><input type="number" placeholder="Priority" min={1} max={10} onChange={(e) => setPriority(parseInt(e.target.value))} style={{width: "100%"}}></input></td>
                 <td><button type="submit" className="addBtn" onClick={handleAddItem}>+</button></td>
             </tr>
         </tfoot> : null}
