@@ -77,19 +77,19 @@ export const getUserInfo = async (req, res) => {
 export const addUser = async (req, res) => {
     const user = req.body
   
-    if (!uid || !user.name || !role) {
+    if (!user.uid || !user.name || !user.role) {
       return res.status(400).json({
         message: "Missing required fields: uid / name / role"
       });
     }
   
-    if (role !== "mentor" && role !== "hp") {
+    if (user.role !== "mentor" && user.role !== "hp") {
       return res.status(400).json({
         message: "Invalid role. Must be either 'mentor' or 'hp'."
       });
     }
   
-    const userQuery = await usersRef.where("uid", "==", uid).get();
+    const userQuery = await usersRef.where("uid", "==", user.uid).get();
     
     if (!userQuery.empty) {
         return res.status(400).json({

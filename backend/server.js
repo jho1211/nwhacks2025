@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 var app = express()
  
-app.use(cors())
+app.use(cors(), express.json({'limit': '5mb'}));
 
 import { getUserInfo, addUser } from './fetch.js'
 
