@@ -30,6 +30,12 @@ export const getMentees = async (req, res) => {
     return res.status(200).json(menteesJson);
 };
 
+export const getMentors = async (req, res) => {
+    const mentors = await usersRef.where("role", "==", "mentor").get();
+    const mentorsJson = mentors.docs.map(doc => doc.data());
+    return res.status(200).json(mentorsJson);
+}
+
 // Get user wishlist from database
 export const getWishlist = async (req, res) => {
 
@@ -67,7 +73,7 @@ export const getConnections = async (req, res) => {
           message: `User with UID ${uid} has no connections.`,
         });
     } else {
-        const connectionJson = connection.docs.map(doc => doc.data())[0];
+        const connectionJson = connection.docs.map(doc => doc.data());
         return res.status(200).json(connectionJson);
     }
 };

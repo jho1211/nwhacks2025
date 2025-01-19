@@ -1,0 +1,15 @@
+table, thead, td {
+    border: 1px solid;
+    border-collapse: collapse;
+    padding: 5px;
+}
+
+table.wishlist-table {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+thead {
+    font-size: 16px;
+    font-weight: 700;
+}

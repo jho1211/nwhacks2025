@@ -1,0 +1,53 @@
+.conn {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+    border: 1px solid;
+    padding: 5px 50px;
+}
+
+.connection-row-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 25px;
+}
+
+.connection-row-profile-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.connection-row-actions {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.connection-row-action {
+    margin-left: 25px;
+    margin-right: 25px;
+    font-size: 32px;
+    cursor: pointer;
+}
+
+.connection-row-chat-btn {
+    width: 100px;
+    height: 40px;
+    background-color: blue;
+    color: white;
+    cursor: pointer;
+    margin-left: 50px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.connection-row-rejected-text {
+    color: darkred;
+    margin-left: 50px;
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+}

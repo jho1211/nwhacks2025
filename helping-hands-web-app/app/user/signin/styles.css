@@ -30,6 +30,7 @@
     height: 50px;
     margin-top: 10px;
     background-color: goldenrod;
+    cursor: pointer;
 }
 
 .create-account {

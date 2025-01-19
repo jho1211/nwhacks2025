@@ -1,0 +1,11 @@
+.connections-table-header {
+    margin-bottom: 25px;
+    font-size: 25px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.connections-table {
+    border: 1px solid;
+    padding: 50px;
+}

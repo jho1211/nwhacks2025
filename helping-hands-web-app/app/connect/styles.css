@@ -1,0 +1,24 @@
+.gallery-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 10px;
+    justify-content: space-between;
+}
+
+.gallery-page {
+    display: flex;
+    flex-direction: column;
+    margin: 50px;
+}
+
+.gallery-title {
+    text-align: left;
+    font-family: Ubuntu;
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 57.45px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    margin-bottom: 50px;
+}

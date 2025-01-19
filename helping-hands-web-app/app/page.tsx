@@ -1,54 +1,29 @@
+"use client"
+
 import styles from "./style.module.css"
-import Link from 'next/link'
+import Navbar from "./components/Navbar/Navbar"
+import { auth } from "@/lib/firebase/clientApp";
+import { onAuthStateChanged } from "firebase/auth";
+import { useState, useEffect } from "react";
 
 export default function LandingPage() {
- return(
+  const [uid, setUid] = useState<string>();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) setUid(user.uid);
+      else setUid("");
+    })
+  }, []);
+
+ return (
     <>
-  <header>
-    <div className="logo">
-    <img src="/helpinghandlogo.png" alt="Logo"/>
-    </div>
-    <nav className={styles.navbar}>
-        <div className={styles.navbar__container}>
-            <ul className={styles.navbar__menu}>
-                <li className={styles.navbar__item}>
-                    <a href="/" className="navbar__links">
-                    Home
-                    </a>
-                </li>
-                <li className={styles.navbar__item}>
-                    <a href="/tech.html" className="navbar__links">
-                    About
-                    </a>
-                </li>
-                <li className={styles.navbar__item}>
-                    <a href="/" className="navbar__links">
-                    Profiles
-                    </a>
-                </li>
-                <li className={styles.navbar__item}>
-                    <a href="/" className="navbar__links">
-                    Testimonies
-                    </a>
-                </li>
-                <li className={styles.navbar__btn}>
-                    <Link href="user/signin" className="button">
-                    Log In
-                    </Link>
-                </li>
-            </ul>
-        </div>
-    </nav>
-  </header>
- 
-
-<main>
-
+    <Navbar bgColor="transparent" uid={uid ?? ""}></Navbar>
     <div className={styles.main__picture}>
         <img src="/hugging_official.jpg" alt="Main Picture"/>
-    <div/>
-
     </div>
+
+  <main>
     <section className={styles.main__page}>
       <h2>Welcome to Helping Hand</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus lacinia odio vitae vestibulum vestibulum.</p>
