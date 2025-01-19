@@ -40,15 +40,16 @@ export default function ChatLayout({
     async function getConnections() {
       const connections = await axios.get<Connection[]>(`connections/${uid}`);
 
-      const userIdsWithMessages = connections.data.flatMap(
-        (connection: Connection) =>
+      const userIdsWithMessages = connections.data
+        .filter((connection) => connection.status == "accepted")
+        .flatMap((connection: Connection) =>
           connection.participants
             .filter((id) => id !== uid)
             .map((userId) => ({
               uid: userId,
               messagesId: connection.messagesId,
             }))
-      );
+        );
 
       if (userIdsWithMessages.length > 0) {
         for (const { uid, messagesId } of userIdsWithMessages) {
