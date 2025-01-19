@@ -1,7 +1,6 @@
 export interface User {
     uid: string,
-    first_name: string,
-    last_name: string,
+    name: string,
     bio: string,
     profile_img: string,
     role: string // can be one of "mentor" or "mentee"
