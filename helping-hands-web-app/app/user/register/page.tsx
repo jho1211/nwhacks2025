@@ -6,6 +6,7 @@ import { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import "./styles.css";
 import { User } from "@/app/models/models";
+import axios from "@/app/utils/axios_instance";
 
 export default function Register() {
     const [email, setEmail] = useState<string>("");
@@ -18,11 +19,11 @@ export default function Register() {
     const [bio, setBio] = useState<string>("");
     const [photoAlert, setPhotoAlert] = useState<string>("");
     const [image, setImage] = useState<HTMLImageElement>();
-    const [role, setRole] = useState<string>("mentee");
+    const [role, setRole] = useState<string>("mentor");
 
     const router = useRouter();
     const minPasswordLength : number = 6;
-    const maxImageSize = 5 * 1024 * 1024;
+    const maxImageSize = 1 * 1024 * 1024;
     const newWidth = 100;
     const newHeight = 100;
     const imgType = "image/jpeg";
@@ -45,6 +46,7 @@ export default function Register() {
                 profile_img: image!.src,
                 role: role
             };
+            console.log(userData);
             initializeUser(userData);
             // router.push("user/login");
         })
@@ -52,19 +54,10 @@ export default function Register() {
     }
 
     async function initializeUser(user: User) {
-        JSON.stringify(user);
-        fetch(`${process.env.API_URL}/api/user`, {
-            method: "POST",
-            body: JSON.stringify(user)
-        }).then(resp => {
-            if (resp.ok) {
-                return;
-            } else {
-                return resp.json();
-            }
-        }).then(resp => {
-            throw resp;
-        }).catch(err => console.error(err));
+        console.log(JSON.stringify(user))
+        axios.post(`/api/user`, JSON.stringify(user))
+        .then(resp => console.log(resp))
+        .catch(err => setError(err.message));
     }
 
     const handlePassword = (e: any) => {
@@ -81,6 +74,14 @@ export default function Register() {
 
         setPassword(e.target.value);
     };
+
+    const handleRole = (e: any) => {
+        if (role == "mentor") {
+            setRole("mentee");
+        } else {
+            setRole("mentor");
+        }
+    }
 
     const handleImageUpload = (e: any) => {
         const target = e.target;
@@ -123,9 +124,10 @@ export default function Register() {
         const fr = new FileReader();
         fr.onload = () => {
             const img = createImage(fr.result);
-            const newImgUrl = reformatImage(img);
-            const newImg = createImage(newImgUrl);
-            setImage(newImg);
+            setImage(img);
+            // const newImgUrl = reformatImage(img);
+            // const newImg = createImage(newImgUrl);
+            // setImage(newImg);
         }
         fr.readAsDataURL(f);
     }
@@ -137,7 +139,7 @@ export default function Register() {
                     <div className="switch-labels">
                         <div className="slider-label">Mentor</div>
                         <label className="switch">
-                            <input type="checkbox"></input>
+                            <input type="checkbox" onChange={handleRole}></input>
                             <span className="slider round"></span>
                         </label>
                         <div className="slider-label">Mentee</div>
