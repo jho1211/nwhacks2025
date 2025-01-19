@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import "./styles.css";
-import { User } from "@/app/models/models";
+import { User, Wishlist } from "@/app/models/models";
 import axios from "@/app/utils/axios_instance";
 
 export default function Register() {
@@ -48,7 +48,7 @@ export default function Register() {
             };
             console.log(userData);
             initializeUser(userData);
-            // router.push("user/login");
+            router.push("user/login");
         })
         .catch(err => setError(err.message));
     }
@@ -57,6 +57,15 @@ export default function Register() {
         axios.post("user", user)
         .then(resp => console.log(resp))
         .catch(err => setError(err.message));
+
+        const wishlist : Wishlist = {
+            uid: user.uid,
+            wishlist: []
+        };
+
+        axios.post("wishlist", wishlist)
+        .then(resp => console.log(resp))
+        .catch(err => setError(err.message));;
     }
 
     const handlePassword = (e: any) => {

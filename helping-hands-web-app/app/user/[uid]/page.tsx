@@ -20,7 +20,7 @@ export default function ProfilePage({params}: {params: Promise<{ uid: string }>}
     }, [])
 
     useEffect(() => {
-        if (user) {
+        if (user && user.role == "mentee") {
             // fetch the wishlist for the user
             const wishlist = axios.get<Wishlist>(`wishlist/${uid}`)
             .then(resp => setWishlist(resp.data))
@@ -42,12 +42,13 @@ export default function ProfilePage({params}: {params: Promise<{ uid: string }>}
 
     return (
         <div>
+            {errorMsg == "" ? null : <div>{errorMsg}</div>}
             <div>
                 <img src={user?.profile_img} width={100} height={100}></img>
                 <div>{user?.name}</div>
                 <div>{user?.bio}</div>
             </div>
-            <div>
+            {user?.role == "mentee" ? <div>
                 <table className="wishlist-table">
                     <thead>
                         <tr>
@@ -59,7 +60,7 @@ export default function ProfilePage({params}: {params: Promise<{ uid: string }>}
                     <tbody>
                     </tbody>
                 </table>
-            </div>
+            </div> : null}
         </div>
     )
 }
