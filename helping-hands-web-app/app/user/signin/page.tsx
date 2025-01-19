@@ -16,7 +16,7 @@ export default function Register() {
 
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            router.push("/");
+            router.push(`/user/${user.uid}`);
         } else {
             return;
         }
