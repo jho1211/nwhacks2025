@@ -21,57 +21,56 @@ export const getUserInfo = async (req, res) => {
     }
 };
 
-// // Get list of all mentees from database
-// const getMentees = (req, res) => {
+// Get list of all mentees from database
+export const getMentees = async (req, res) => {
 
-//     const mentees = usersRef.filter(user => user.role === "hp");
+    const mentees = await usersRef.where("role", "==", "mentee").get()
 
-//     // if (mentees.length > 0) {
-//         res.status(200).json(mentees);
-//     // } else {
-//     //     res.status(404).json({ message: 'No mentees found' });
-//     // }
-    
-// };
+    const menteesJson = mentees.docs.map(doc => doc.data());
+    return res.status(200).json(menteesJson);
+};
 
-// // Getuser wishlist from database
-// const getWishlist = (req, res) => {
+// Get user wishlist from database
+export const getWishlist = async (req, res) => {
 
-//     const uid = req.params.uid;
-//     const wishlist = wishlistsRef.find(w => w.uid === uid);
+    const uid = req.params.uid;
+    const wishlist = await wishlistsRef
+                .where("uid", "==", uid)
+                .get()
 
-//     if (wishlist) {
-//         if (wishlist.wishlist) {
-//           res.status(200).json(wishlist);
-//         } else {
-//           res.status(400).json({
-//             message: `User with UID ${uid} has no wishlist.`
-//           });
-//         }
-//     } else {
-//     res.status(400).json({
-//         message: `User with UID ${uid} does not exist.`
-//     });
-//     }
-// };
+    if (wishlist) {
+        const wishlistJson = wishlist.docs.map(doc => doc.data())[0];
+        if (wishlistJson) {
+          return res.status(200).json(wishlistJson);
+        } else {
+          return res.status(400).json({
+            message: `User with UID ${uid} has no wishlist.`
+          });
+        }
+    } else {
+    return res.status(400).json({
+        message: `User with UID ${uid} does not exist.`
+    });
+    }
+};
 
-// // Get user connections from database
-// const getConnections = async (req, res) => {
+// Get user connections from database
+export const getConnections = async (req, res) => {
 
-//     const uid = req.params.uid;
-//     const q = query(connectionsRef, where("participants", "array-contains", uid));
-//     const querySnapshot = await getDocs(q);
+    const uid = req.params.uid;
+    const connection = await connectionsRef
+                        .where("participants", "array-contains", uid)
+                        .get()
 
-//     if (querySnapshot.empty) {
-//         return res.status(400).json({
-//           message: `User with UID ${uid} has no connections.`,
-//         });
-//     } else {
-//         const connections = querySnapshot.docs.map(doc => doc.data());
-
-//         res.status(200).json(connections);
-//     }
-// };
+    if (connection.empty) {
+        return res.status(400).json({
+          message: `User with UID ${uid} has no connections.`,
+        });
+    } else {
+        const connectionJson = connection.docs.map(doc => doc.data())[0];
+        return res.status(200).json(connectionJson);
+    }
+};
 
 // Add new user to database
 export const addUser = async (req, res) => {
@@ -83,7 +82,7 @@ export const addUser = async (req, res) => {
       });
     }
   
-    if (user.role !== "mentor" && user.role !== "hp") {
+    if (user.role !== "mentor" && user.role !== "mentee") {
       return res.status(400).json({
         message: "Invalid role. Must be either 'mentor' or 'hp'."
       });
@@ -93,7 +92,7 @@ export const addUser = async (req, res) => {
     
     if (!userQuery.empty) {
         return res.status(400).json({
-            message: `User with UID ${uid} already exists.`
+            message: `User with UID ${user.uid} already exists.`
         });
     } else {
         usersRef.add(user)
@@ -103,67 +102,64 @@ export const addUser = async (req, res) => {
 };
 
 // // Create wishlist for user in database
-// const createWishlist = async (req, res) => {
-//     const uid = req.body.uid;
-//     const wishlist = req.body.wishlist;
+export const createWishlist = async (req, res) => {
+    const userWishlist = req.body
   
-//     if (!uid || !wishlist) {
-//       return res.status(400).json({
-//         message: "Missing required fields: uid / wishlist"
-//       });
-//     }
+    if (!userWishlist.uid || !userWishlist.wishlist) {
+      return res.status(400).json({
+        message: "Missing required fields: uid / wishlist"
+      });
+    }
   
-//     const wishlistQuery = query(wishlistsRef, where("uid", "==", uid));
-//     const wishlistSnapshot = await getDocs(wishlistQuery);
+    const wishlistQuery = await wishlistsRef.where("uid", "==", userWishlist.uid).get();
 
-//     if (!wishlistSnapshot.empty) {
-//     return res.status(400).json({
-//         message: `Wishlist for user with UID ${uid} already exists.`
-//     });
-//     }
+    if (!wishlistQuery.empty) {
+    return res.status(400).json({
+        message: `Wishlist for user with UID ${userWishlist.uid} already exists.`
+    });
+    } else {
+        wishlistsRef.add(userWishlist)
+        .then(doc => res.status(200).json({message: `Wishlist for user with UID ${userWishlist.uid} successfully added to the database.`}))
+        .catch(err => res.status(500).json({message: err.message}));
+    }
+};
 
-//     // If user does not exist, add the user to the database
-//     await addDoc(usersRef, {
-//     uid,
-//     wishlist
-//     });
+// Create wishlist for user in database
+export const addNewConnectionsList = async (req, res) => {
+    const connection = req.body;
+    
+    if (!connection.participants || !connection.status || !connection.messagesId) {
+      return res.status(400).json({
+        message: "Missing required fields: participants / status / messagesId"
+      });
+    }
 
-//     res.status(200).json({
-//     message: "Wishlist for user with UID ${uid} successfully added to the database."
-//     });
-// };
+    const participant1 = connection.participants[0];
+    const participant2 = connection.participants[1];
+    const connectionsQuery1 = await connectionsRef
+                            .where("participants", "array-contains", participant1)
+                            .get();
 
-// // Create wishlist for user in database
-// const addNewConnectionsList = async (req, res) => {
-//     const participants = req.body.participants;
-//     const status = req.body.status;
-//     const messagesId = req.body.messagesId;
-  
-//     if (!participants || !status || !messagesId) {
-//       return res.status(400).json({
-//         message: "Missing required fields: participants / status / messagesId"
-//       });
-//     }
-  
-//     const wishlistQuery = query(wishlistsRef, where("uid", "==", uid));
-//     const wishlistSnapshot = await getDocs(wishlistQuery);
+    let connectionFound = false;
+    connectionsQuery1.forEach(doc => {
+    const connectionData = doc.data();
+    if (connectionData.participants.includes(participant2)) {
+        connectionFound = true;
+    }
+    });
+    
 
-//     if (!wishlistSnapshot.empty) {
-//     return res.status(400).json({
-//         message: `Wishlist for user with UID ${uid} already exists.`
-//     });
-//     }
+    if (connectionFound) {
+    return res.status(400).json({
+        message: `Connection already exists`
+    });
+    } else {
+        connectionsRef.add(connection)
+        .then(doc => res.status(200).json({message: "Connection successfully added to the database."}))
+        .catch(err => res.status(500).json({message: err.message}));
+    }
+};
 
-//     // If user does not exist, add the user to the database
-//     await addDoc(usersRef, {
-//     uid,
-//     wishlist
-//     });
-
-//     res.status(200).json({
-//     message: "Wishlist for user with UID ${uid} successfully added to the database."
-//     });
-// };
 
 // // Update user information in database
 // const updateUserInfo = async (req, res) => {

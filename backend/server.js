@@ -4,28 +4,28 @@ var app = express()
  
 app.use(cors(), express.json({'limit': '5mb'}));
 
-import { getUserInfo, addUser } from './fetch.js'
+import { getUserInfo, getMentees, addUser, getWishlist, getConnections, createWishlist, addNewConnectionsList } from './fetch.js'
 
 // GET route to send user information with specified user id to frontend
 app.get('/api/user/:uid', getUserInfo); 
 
-// // GET route to send all the homeless people in the database to frontend
-// app.get('/api/mentees', fetchHandlers.getMentees);
+// GET route to send all the homeless people in the database to frontend
+app.get('/api/mentees', getMentees);
 
-// // GET route to send wishlist of user with specified user id to frontend
-// app.get('/api/wishlist/:uid', fetchHandlers.getWishlist);
+// GET route to send wishlist of user with specified user id to frontend
+app.get('/api/wishlist/:uid', getWishlist);
 
-// // GET route to send connections for the user with specified user id to frontend
-// app.get('/api/connections/:uid', fetchHandlers.getConnections);
+// GET route to send connections for the user with specified user id to frontend
+app.get('/api/connections/:uid', getConnections);
 
-// // POST route to add user to database
+// POST route to add user to database
 app.post('/api/user', addUser);
 
-// // POST route to create wishlist
-// app.post('/api/wishlist', fetchHandlers.createWishlist);
+// POST route to create wishlist
+app.post('/api/wishlist', createWishlist);
 
 // // POST route to add new connections list
-// app.post('/api/connections', fetchHandlers.addNewConnectoinsList);
+app.post('/api/connections', addNewConnectionsList);
 
 // // PUT route to update user information
 // app.put('/api/user', fetchHandlers.updateUserInfo);
