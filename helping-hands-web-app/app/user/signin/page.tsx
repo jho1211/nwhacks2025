@@ -47,7 +47,8 @@ export default function Register() {
 
   return (
     <div className="signup-container">
-      <h1>Sign-in</h1>
+      <img src="/heartinhand.png" alt="Helping Hands" className="signup-image" />
+      <h1>Welcome back</h1>
       {error == "" ? null : <div>{error}</div>}
       <form className="register-form" onSubmit={handleSubmit}>
         <div className="input-group">
