@@ -1,0 +1,38 @@
+.sendMessageContainer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: calc(100% - 30%);
+  background-color: var(--background);
+  z-index: 1000; /* Ensures it stays on top */
+  height: 130px;
+  padding: 25px;
+  display: flex; /* Enable flexbox */
+  justify-content: center; /* Horizontally center the content */
+  align-items: center; /* Vertically center the content */
+}
+
+.sendMessageContainer form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+}
+
+.formInput {
+  width: 80%;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 20px; /* Adjusted for rounded edges */
+  margin-bottom: 10px; /* Space between input and button */
+}
+
+.sendMessageButton {
+  padding: 10px 15px;
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
