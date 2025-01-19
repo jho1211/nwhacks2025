@@ -17,7 +17,8 @@ export const getUserInfo = async (req, res) => {
     if (user.empty) {
         return res.status(404).json({ message: `User with UID ${uid} not found` });
     } else {
-        return res.status(200).json(user);
+        const userJson = user.docs.map(doc => doc.data());
+        return res.status(200).json(userJson);
     }
 };
 
