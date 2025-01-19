@@ -148,7 +148,6 @@ export const addNewConnectionsList = async (req, res) => {
     }
     });
     
-
     if (connectionFound) {
     return res.status(400).json({
         message: `Connection already exists`
@@ -161,26 +160,84 @@ export const addNewConnectionsList = async (req, res) => {
 };
 
 
-// // Update user information in database
-// const updateUserInfo = async (req, res) => {
-//     const userQuery = query(usersRef, where("uid", "==", uid));
-//     const userSnapshot = await getDocs(userQuery);
+// Update user information in database
+export const updateUserInfo = async (req, res) => {
+    const user = req.body;
+    const userQuery = await usersRef.where("uid", "==", user.uid).get();
 
+    if (!userQuery.empty) {
+        const userDoc = userQuery.docs[0];
+        userDoc.ref.update(user)
+        .then(() => res.status(200).json({message: "User information successfully updated in the database."}))
+        .catch(err => res.status(500).json({message: err.message}));
+    } else {
+        return res.status(400).json({
+            message: `User with UID ${user.uid} does not exist.`
+        });
+    }
+}
 
-// }
+// Update user wishlist in database
+export const updateWishlist = async (req, res) => {
+    const wishlist = req.body;
+    const wishlistQuery = await wishlistsRef.where("uid", "==", wishlist.uid).get();
 
-// // Export handler functions to server.js
-// module.exports = {
-//     getUserInfo,
-//     getMentees,
-//     getWishlist,
-//     getConnections,
-//     addUser,
-//     createWishlist,
-//     addNewConnectoinsList,
-//     updateUserInfo,
-//     updateWishlist,
-//     updateConnectionsList,
-//     removeUser,
-//     removeConnectionsList
-//   };
+    if (!wishlistQuery.empty) {
+        const wishlistDoc = wishlistQuery.docs[0];
+        wishlistDoc.ref.update(wishlist)
+        .then(() => res.status(200).json({message: "User wishlist successfully updated in the database."}))
+        .catch(err => res.status(500).json({message: err.message}));
+    } else {
+        return res.status(400).json({
+            message: `User wishlist with UID ${wishlist.uid} does not exist.`
+        });
+    }
+}
+
+// Update user connections in database
+export const updateConnectionsList = async (req, res) => {
+    const connection = req.body;
+    
+    const participant1 = connection.participants[0];
+    const participant2 = connection.participants[1];
+    const connectionsQuery = await connectionsRef
+                            .where("participants", "array-contains", participant1)
+                            .get();
+
+    let connectionFound = false;
+    connectionsQuery.forEach(doc => {
+    const connectionData = doc.data();
+    if (connectionData.participants.includes(participant2)) {
+        connectionFound = true;
+    }
+    });
+    
+    if (connectionFound) {
+        const connectionDoc = connectionsQuery.docs[0];
+        connectionDoc.ref.update(connection)
+        .then(() => res.status(200).json({message: "User connection successfully updated in the database."}))
+        .catch(err => res.status(500).json({message: err.message}));
+    } else {
+        return res.status(400).json({
+        message: `Connection does not exists`
+        });
+    }
+}
+
+// // Delete user from database
+// export const removeUser = async (req, res) => {
+//     const user = req.body
+  
+//     const userQuery = await usersRef.where("uid", "==", user.uid).get();
+    
+//     if (userQuery.empty) {
+//         return res.status(400).json({
+//             message: `User with UID ${user.uid} does not exist.`
+//         });
+//     } else {
+//         const userDoc = userQuery.docs[0];
+//         userDoc.ref.delete()
+//         .then(() => res.status(200).json({message: "User has been successfully deleted from the database."}))
+//         .catch(err => res.status(500).json({message: err.message}));
+//     }
+// };
