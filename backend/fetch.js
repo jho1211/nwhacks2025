@@ -30,6 +30,12 @@ export const getMentees = async (req, res) => {
     return res.status(200).json(menteesJson);
 };
 
+export const getMentors = async (req, res) => {
+    const mentors = await usersRef.where("role", "==", "mentor").get();
+    const mentorsJson = mentors.docs.map(doc => doc.data());
+    return res.status(200).json(mentorsJson);
+}
+
 // Get user wishlist from database
 export const getWishlist = async (req, res) => {
 

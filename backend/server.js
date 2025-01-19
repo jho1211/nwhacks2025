@@ -7,6 +7,7 @@ app.use(cors(), express.json({'limit': '5mb'}));
 import { getUserInfo, getMentees, addUser, getWishlist,
          getConnections, createWishlist, addNewConnectionsList,
          updateUserInfo, updateWishlist, updateConnectionsList,
+         getMentors,
          } from './fetch.js'
 
 // GET route to send user information with specified user id to frontend
@@ -14,6 +15,8 @@ app.get('/api/user/:uid', getUserInfo);
 
 // GET route to send all the homeless people in the database to frontend
 app.get('/api/mentees', getMentees);
+
+app.get('/api/mentors', getMentors);
 
 // GET route to send wishlist of user with specified user id to frontend
 app.get('/api/wishlist/:uid', getWishlist);
