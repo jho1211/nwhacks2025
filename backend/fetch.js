@@ -1,21 +1,23 @@
-import { firebase, db } from './serverApp.js'
+import { db } from './serverApp.js'
 import { collection, query, where, getDocs } from 'firebase/firestore';
 
-// const usersRef = collection(db, "users");
+const usersRef = db.collection("users");
 // const wishlistsRef = collection(db, "wishlists");
 // const connectionsRef = collection(db, "connections");
 
 
 // Get user information from database
-export const getUserInfo = (req, res) => {
+export const getUserInfo = async (req, res) => {
 
     const uid = req.params.uid;
-    const user = usersRef.find(u => u.uid === uid);
+    const user = await usersRef
+                    .where("uid", "==", uid)
+                    .get()
 
-    if (user) {
-        res.status(200).json(user);
+    if (user.empty) {
+        return res.status(404).json({ message: `User with UID ${uid} not found` });
     } else {
-        res.status(404).json({ message: `User with UID ${uid} not found` });
+        return res.status(200).json(user);
     }
 };
 

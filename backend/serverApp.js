@@ -3,7 +3,7 @@ import admin from "firebase-admin";
 
 import { serverConfig } from "./config.js";
 
-export const firebase = admin.apps.length
+export const app = admin.apps.length
   ? admin.app()
   : admin.initializeApp(serverConfig);
 
