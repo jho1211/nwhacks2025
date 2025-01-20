@@ -63,12 +63,9 @@ export const getWishlist = async (req, res) => {
 export const getConnections = async (req, res) => {
 
     const uid = req.params.uid;
-    console.log(uid);
-    console.log(connectionsRef);
     const connection = await connectionsRef
                         .where("participants", "array-contains", uid)
                         .get()
-    console.log(connection);
     if (connection.empty) {
         return res.status(400).json({
           message: `User with UID ${uid} has no connections.`,
