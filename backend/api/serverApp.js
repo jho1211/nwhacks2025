@@ -1,4 +1,3 @@
-// lib/firebase.ts
 import admin from "firebase-admin";
 
 import { serverConfig } from "./config.js";

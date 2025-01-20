@@ -1,5 +1,4 @@
 import { db } from './serverApp.js'
-import { collection, query, where, getDocs } from 'firebase/firestore';
 
 const usersRef = db.collection("users");
 const wishlistsRef = db.collection("wishlists");

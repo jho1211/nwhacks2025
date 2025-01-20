@@ -1,15 +1,14 @@
 import express from 'express'
-import cors from 'cors'
-var app = express()
- 
-app.use(cors(), express.json({'limit': '5mb'}));
-
 import { getUserInfo, getMentees, addUser, getWishlist,
-         getConnections, createWishlist, addNewConnectionsList,
-         updateUserInfo, updateWishlist, updateConnectionsList,
-         getMentors,
-         } from './fetch.js'
+  getConnections, createWishlist, addNewConnectionsList,
+  updateUserInfo, updateWishlist, updateConnectionsList,
+  getMentors,
+  } from './fetch.js'
 
+const app = express();
+app.use(express.json({'limit': '5mb'}));
+
+app.get("/", (req, res) => res.send("Express on Vercel"));
 // GET route to send user information with specified user id to frontend
 app.get('/api/user/:uid', getUserInfo); 
 
@@ -47,7 +46,4 @@ app.put('/api/connections', updateConnectionsList);
 
 // // DELETE route to remove the connections list for a user from database
 // app.delete('/api/connections/:uid', fetchHandlers.removeConnectionsList);
-
-app.listen(8080, function () {
-  console.log('CORS-enabled web server listening on port 8080')
-})
+export default app;
