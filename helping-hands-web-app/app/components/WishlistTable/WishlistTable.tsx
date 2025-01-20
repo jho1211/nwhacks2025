@@ -1,10 +1,9 @@
 import { Wishlist, Wish } from "@/app/models/models"
-import { useRouter } from "next/navigation";
 import axios from "@/app/utils/axios_instance";
 import "./styles.css"
 import { Dispatch, SetStateAction, useState } from "react";
 
-export default function WishlistTable(props: {wishlist: Wishlist | undefined, canEdit: boolean, handler: Dispatch<SetStateAction<Wishlist>> | undefined}) {
+export default function WishlistTable(props: {wishlist: Wishlist | undefined, canEdit: boolean, handler: Dispatch<SetStateAction<Wishlist | undefined>>}) {
     const [itemName, setItemName] = useState<string>("");
     const [itemUrl, setItemUrl] = useState<string>("");
     const [priority, setPriority] = useState<number>(1);

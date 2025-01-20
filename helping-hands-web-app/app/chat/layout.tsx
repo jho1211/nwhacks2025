@@ -1,13 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
 import styles from "./chat.module.css";
-import { useRouter } from "next/navigation";
 import { firebaseApp } from "@/lib/firebase/clientApp";
 import { Connection, User } from "../models/models";
 import InboxItem from "./components/InboxItem/InboxItem";
 import axios from "@/app/utils/axios_instance";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { userStore } from "@/store/user";
 
 export interface UserWithMessagesId extends User {
   messagesId: string;
@@ -18,8 +16,6 @@ export default function ChatLayout({
   const [uid, setUid] = useState<string | null>(null);
   const [users, setUsers] = useState<UserWithMessagesId[]>([]);
   const auth = getAuth(firebaseApp);
-  const setUser = userStore((state) => state.setUser);
-  const user = userStore((state) => state.user);
 
   useEffect(() => {
     const auth = getAuth();

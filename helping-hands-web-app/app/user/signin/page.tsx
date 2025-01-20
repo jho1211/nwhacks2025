@@ -2,7 +2,7 @@
 
 import { firebaseApp } from "@/lib/firebase/clientApp";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -31,7 +31,7 @@ export default function Register() {
     }
   });
 
-  async function handleSubmit(event: any) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
 

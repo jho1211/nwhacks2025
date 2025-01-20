@@ -33,10 +33,10 @@ export default function ProfilePage({params}: {params: Promise<{ uid: string }>}
       });
 
     useEffect(() => {
-        const fetchedUser = axios.get<User>(`user/${uid}`)
+        axios.get<User>(`user/${uid}`)
         .then(resp => setUser(resp.data))
         .catch(err => setErrorMsg(err.message));
-    }, [])
+    }, [uid])
 
     useEffect(() => {
         if (user && user.role == "mentee") {
@@ -51,7 +51,7 @@ export default function ProfilePage({params}: {params: Promise<{ uid: string }>}
             .then(resp => setConnections(resp.data))
             .catch(err => console.log(err));
         }
-    }, [user])
+    }, [user, uid])
 
     const handleConnect = () => {
         if (curUid && user) {

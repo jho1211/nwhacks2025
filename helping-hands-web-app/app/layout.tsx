@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import { Ubuntu, Inter } from "next/font/google";
-import styles from "./page.module.css";
 import "./globals.css";
 
 const ubuntu = Ubuntu({
+  subsets: ['latin'],
   variable: "--font-ubuntu",
   weight: ["300", "400", "500", "500", "700"],
 });
 
 const inter = Inter({
+  subsets: ['latin'],
   variable: "--font-inter",
   weight: ["300", "400", "500", "600", "700"],
 });

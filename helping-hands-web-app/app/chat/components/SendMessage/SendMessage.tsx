@@ -6,11 +6,6 @@ import {
   addDoc,
   collection,
   serverTimestamp,
-  doc,
-  getDocs,
-  query,
-  limit,
-  where,
 } from "firebase/firestore";
 import axios from "@/app/utils/axios_instance";
 import { User } from "@/app/models/models";

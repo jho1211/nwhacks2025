@@ -23,7 +23,7 @@ export default function ChatPage({
   params,
 }: {
   params: Promise<{ messagesId: string }>;
-  searchParams: { [key: string]: string };
+  searchParams: Promise<{[key: string]: string}>;
 }) {
   const messagesId = use(params).messagesId;
   const [messages, setMessages] = useState<MessageType[]>([]);
@@ -44,7 +44,7 @@ export default function ChatPage({
           setUid(user.uid);
       }
     })
-  }, []);
+  }, [router]);
 
   useEffect(() => {
       if (uid) {

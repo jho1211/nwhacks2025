@@ -2,8 +2,8 @@
 
 import { firebaseApp } from "@/lib/firebase/clientApp";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { FormEvent, ChangeEvent, useState } from "react";
+import { getAuth, createUserWithEmailAndPassword, UserCredential } from "firebase/auth";
 import "./styles.css";
 import { User, Wishlist } from "@/app/models/models";
 import axios from "@/app/utils/axios_instance";
@@ -26,9 +26,8 @@ export default function Register() {
     const maxImageSize = 1 * 1024 * 1024;
     const newWidth = 100;
     const newHeight = 100;
-    const imgType = "image/jpeg";
 
-    async function handleSubmit(event: any) {
+    async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setError("");
 
@@ -38,7 +37,7 @@ export default function Register() {
         }
 
         createUserWithEmailAndPassword(getAuth(firebaseApp), email, password)
-        .then(user => {
+        .then((user: UserCredential) => {
             const userData : User = {
                 uid: user.user.uid,
                 name: name,
@@ -46,7 +45,6 @@ export default function Register() {
                 profile_img: image!.src,
                 role: role
             };
-            console.log(userData);
             initializeUser(userData);
             router.push("/user/signin");
         })
@@ -68,7 +66,7 @@ export default function Register() {
         .catch(err => setError(err.message));;
     }
 
-    const handlePassword = (e: any) => {
+    const handlePassword = (e: ChangeEvent<HTMLInputElement>) => {
         if (
             e.target.value.length < minPasswordLength &&
             e.target.value.length !== 0
@@ -83,7 +81,7 @@ export default function Register() {
         setPassword(e.target.value);
     };
 
-    const handleRole = (e: any) => {
+    const handleRole = () => {
         if (role == "mentor") {
             setRole("mentee");
         } else {
@@ -91,30 +89,21 @@ export default function Register() {
         }
     }
 
-    const handleImageUpload = (e: any) => {
+    const handleImageUpload = (e: ChangeEvent<HTMLInputElement>) => {
         const target = e.target;
         if (target.files && target.files!.length > 0) {
             const imgFile: File = target.files[0]
             try {
                 readImage(imgFile);
-            } catch (e: any) {
-                setPhotoAlert(e.message);
+            } catch (e) {
+                if (e instanceof Error) setPhotoAlert(e.message);
             }
         } else {
             return;
         }
     }
-    
-    const reformatImage = (img: HTMLImageElement): string => {
-        const canvas = document.createElement("canvas");
-        canvas.width = newWidth;
-        canvas.height = newHeight;
-        canvas.getContext('2d')!.drawImage(img, 0, 0, newWidth, newHeight);
-        
-        return canvas.toDataURL(imgType);
-    }
 
-    const createImage = (src: any) => {
+    const createImage = (src: string) => {
         const image = new Image();
         image.height = newHeight;
         image.width = newWidth;
@@ -131,11 +120,8 @@ export default function Register() {
     
         const fr = new FileReader();
         fr.onload = () => {
-            const img = createImage(fr.result);
+            const img = createImage(fr.result as string);
             setImage(img);
-            // const newImgUrl = reformatImage(img);
-            // const newImg = createImage(newImgUrl);
-            // setImage(newImg);
         }
         fr.readAsDataURL(f);
     }

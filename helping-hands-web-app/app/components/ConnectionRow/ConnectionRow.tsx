@@ -4,18 +4,15 @@ import { Connection, User } from "@/app/models/models"
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import axios from "@/app/utils/axios_instance";
-import "./styles.css"
-import { useRouter } from "next/navigation";
+import "./styles.css";
 
 export default function ConnectionRow(props: {uid: string, conn: Connection}) {
     const [user, setUser] = useState<User>();
-    const [seed, setSeed] = useState<number>(0.5);
-    const router = useRouter();
+    const [, setSeed] = useState<number>(0.5);
 
     useEffect(() => {
-        props.conn.participants[0] == props.uid ? 
-        axios.get(`user/${props.conn.participants[1]}`).then(resp => setUser(resp.data)) :
-        axios.get(`user/${props.conn.participants[0]}`).then(resp => setUser(resp.data))
+        if (props.conn.participants[0] == props.uid) axios.get(`user/${props.conn.participants[1]}`).then(resp => setUser(resp.data))
+        else axios.get(`user/${props.conn.participants[0]}`).then(resp => setUser(resp.data))
     }, [])
 
     const handleAccept = (other: string) => {

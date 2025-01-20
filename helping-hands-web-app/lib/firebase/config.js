@@ -1,4 +1,4 @@
-require('dotenv').config()
+import 'dotenv/config'
 
 const clientConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,

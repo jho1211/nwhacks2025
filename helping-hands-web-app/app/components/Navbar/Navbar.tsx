@@ -11,25 +11,25 @@ export default function Navbar(props: {bgColor: string, uid: string}) {
         <div className={styles.navbar__container}>
             <ul className={styles.navbar__menu}>
                 <li className={styles.navbar__item}>
-                    <a href="/" className="navbar__links">
+                    <Link href="/" className="navbar__links">
                     Home
-                    </a>
+                    </Link>
                 </li>
                 
                 <li className={styles.navbar__item}>
-                    <a href="/connect" className="navbar__links">
+                    <Link href="/connect" className="navbar__links">
                     Profiles
-                    </a>
+                    </Link>
                 </li>
                 <li className={styles.navbar__item}>
-                    <a href="/" className="navbar__links">
+                    <Link href="/" className="navbar__links">
                     Testimonies
-                    </a>
+                    </Link>
                 </li>
                 {props.uid != "" ? <li className={styles.navbar__item}>
-                    <a href={`/user/${props.uid}`} className="navbar__links">
+                    <Link href={`/user/${props.uid}`} className="navbar__links">
                     My Profile
-                    </a>
+                    </Link>
                 </li> : null}
                 {props.uid != "" ? <Link href="/user/signout" className="button">
                   <li className={styles.navbar__btn}>

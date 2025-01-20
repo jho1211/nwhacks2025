@@ -13,7 +13,7 @@ export default function Message({ message, uid }: { message: Message; uid: strin
       axios.get<User>(`user/${message.senderId}`)
       .then(resp => setUser(resp.data));
     }
-  }, [])
+  }, [message.senderId, uid])
 
   return (
     <div

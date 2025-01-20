@@ -1,6 +1,6 @@
 "use client"
 
-import { User, Connection } from "@/app/models/models";
+import { Connection } from "@/app/models/models";
 import "./styles.css"
 import ConnectionRow from "../ConnectionRow/ConnectionRow";
 
