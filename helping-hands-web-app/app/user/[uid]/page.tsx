@@ -24,14 +24,16 @@ export default function ProfilePage({params}: {params: Promise<{ uid: string }>}
     const router = useRouter();
     const curUid = useRef<string>("");
     
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            curUid.current = user.uid;
-        } else {
-            router.push("/user/signin")
-            return (<div>You need to be logged in to access this page.</div>)
-        }
-      });
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                curUid.current = user.uid;
+            } else {
+                router.push("/user/signin")
+                return (<div>You need to be logged in to access this page.</div>)
+            }
+          });
+    });
 
     useEffect(() => {
         axios.get<User>(`user/${uid}`)
