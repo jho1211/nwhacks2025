@@ -55,7 +55,7 @@
   grid-row: 2; /* Place messages in the second row */
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: center;
   margin-bottom: 150px;
   padding: 20px;

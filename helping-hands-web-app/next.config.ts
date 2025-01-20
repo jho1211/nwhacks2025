@@ -14,15 +14,7 @@ const nextConfig: NextConfig = {
             hostname: 'static.vecteezy.com',
         }
     ]
-  },
-  async rewrites() {
-    return [
-      {
-        source: '/api/:path*',
-        destination: 'https://helping-hand-backend.vercel.app/:path*', // Replace with your backend domain
-      },
-    ];
-  },
+  }
 };
 
 export default nextConfig;
