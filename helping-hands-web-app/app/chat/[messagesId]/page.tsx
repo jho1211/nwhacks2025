@@ -16,6 +16,7 @@ import { auth, db } from "@/lib/firebase/clientApp";
 import { useRouter } from "next/navigation";
 import { User } from "../../models/models";
 import axios from "@/app/utils/axios_instance";
+import Image from "next/image";
 
 import Message from "../components/Message/Message";
 import { onAuthStateChanged } from "firebase/auth";
@@ -97,7 +98,7 @@ export default function ChatPage({
       <div className={styles.header}>
         {otherUser ? <>
         {otherUser.name}
-        <img
+        <Image
           src={otherUser.profile_img}
           alt={otherUser?.name}
           width={50}

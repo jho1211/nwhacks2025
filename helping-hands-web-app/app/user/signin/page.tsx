@@ -13,6 +13,7 @@ import Link from "next/link";
 import { userStore } from "@/store/user";
 import { type User } from "@/app/models/models";
 import axios from "@/app/utils/axios_instance";
+import Image from "next/image";
 
 export default function Register() {
   const [email, setEmail] = useState<string>("");
@@ -47,7 +48,7 @@ export default function Register() {
 
   return (
     <div className="signup-container">
-      <img src="/heartinhand.png" alt="Helping Hands" className="signup-image" />
+      <Image src="/heartinhand.png" alt="Helping Hands" className="signup-image" />
       <h1>Welcome back</h1>
       {error == "" ? null : <div>{error}</div>}
       <form className="register-form" onSubmit={handleSubmit}>

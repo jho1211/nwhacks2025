@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { User, type Message } from "@/app/models/models";
 import styles from "./message.module.css";
 import axios from "@/app/utils/axios_instance";
+import Image from 'next/image';
 
 export default function Message({ message, uid }: { message: Message; uid: string }) {
   const [user, setUser] = useState<User>();
@@ -21,7 +22,7 @@ export default function Message({ message, uid }: { message: Message; uid: strin
         message.senderId == uid ? `${styles.receiver}` : `${styles.sender}`
       }`}
     >
-      <img
+      <Image
         src={user ? user.profile_img : "https://placehold.co/100/100"}
         alt="temp"
         width={50}

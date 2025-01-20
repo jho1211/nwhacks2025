@@ -17,13 +17,15 @@ export default function ConnectPage() {
     const [uid, setUid] = useState<string>();
     const [user, setUser] = useState<User>();
 
-    onAuthStateChanged(auth, (user) => {
-        if (!user) {
-            router.push("/user/signin");
-            return (<div>You need to be logged in to access this page.</div>)
-        } else {
-            setUid(user.uid);
-        }
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (!user) {
+                router.push("/user/signin");
+                return (<div>You need to be logged in to access this page.</div>)
+            } else {
+                setUid(user.uid);
+            }
+        })
     })
 
     useEffect(() => {

@@ -12,6 +12,7 @@ import { AxiosError } from 'axios';
 import Navbar from '@/app/components/Navbar/Navbar';
 import WishlistTable from '@/app/components/WishlistTable/WishlistTable';
 import ConnectionsTable from '@/app/components/ConnectionsTable/ConnectionsTable';
+import Image from 'next/image';
 
 export default function ProfilePage({params}: {params: Promise<{ uid: string }>}) {
     const uid = use(params).uid;
@@ -83,7 +84,7 @@ export default function ProfilePage({params}: {params: Promise<{ uid: string }>}
                 {errorMsg == "" ? null : <div>{errorMsg}</div>}
                 <div className="image-separator">
                     <div style={{paddingRight: "50px"}}>
-                        <img src={user?.profile_img} className="profile-img"></img>
+                        {user ? <Image src={user.profile_img} alt={user.name} className="profile-img"></Image> : null}
                         <h1 className="name-tag">{user?.name}</h1>
                     </div>
                     <div className="bio">

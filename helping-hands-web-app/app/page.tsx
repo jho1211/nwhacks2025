@@ -6,6 +6,7 @@ import Link from "next/link";
 import { auth } from "@/lib/firebase/clientApp";
 import { onAuthStateChanged } from "firebase/auth";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 export default function LandingPage() {
   const [uid, setUid] = useState<string>();
@@ -21,7 +22,7 @@ export default function LandingPage() {
     <>
       <Navbar bgColor="transparent" uid={uid ?? ""}></Navbar>
       <div className={styles.main__picture}>
-        <img src="/hugging_official.jpg" alt="Main Picture" />
+        <Image src="/hugging_official.jpg" alt="Main Picture" />
       </div>
 
       <main>
@@ -87,21 +88,21 @@ export default function LandingPage() {
         <section className={styles.icons}>
           <Link href="/connect">
             <div className={styles.donation__btn}>
-              <img src="/heartinhand.png" alt="Heart Icon" />
+              <Image src="/heartinhand.png" alt="Heart Icon" />
               <h3>Donations</h3>
               <p>Become a donor and support a member of your community.</p>
             </div>
           </Link>
           <Link href="/connect">
             <div className={styles.profiles__btn}>
-              <img src="/profilepic.png" alt="Profile Icon" />
+              <Image src="/profilepic.png" alt="Profile Icon" />
               <h3>Profiles</h3>
               <p>Browse profiles of mentees in your area!</p>
             </div>
           </Link>
           <Link href="/">
             <div className={styles.testimonies__btn}>
-              <img src="/handshake.png" alt="Handshake Icon" />
+              <Image src="/handshake.png" alt="Handshake Icon" />
               <h3>Testimonies</h3>
               <p>Read how Helping Hand changed lives.</p>
             </div>

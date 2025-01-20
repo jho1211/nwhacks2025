@@ -1,5 +1,6 @@
 import { User } from "@/app/models/models";
 import Link from "next/link";
+import Image from "next/image";
 import "./styles.css"
 
 export default function GalleryItem(props: {user: User}) {
@@ -7,7 +8,7 @@ export default function GalleryItem(props: {user: User}) {
 
     return (<div className="gallery-card">
         <div>
-            <img src={user.profile_img} className="gallery-profile-img"></img>
+            <Image src={user.profile_img} alt={user.name} className="gallery-profile-img"></Image>
             <div className="gallery-profile-name">{user.name}</div>
             <div className="gallery-profile-bio">{user.bio}</div>
         </div>

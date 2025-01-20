@@ -7,6 +7,7 @@ import { getAuth, createUserWithEmailAndPassword, UserCredential } from "firebas
 import "./styles.css";
 import { User, Wishlist } from "@/app/models/models";
 import axios from "@/app/utils/axios_instance";
+import Img from "next/image";
 
 export default function Register() {
     const [email, setEmail] = useState<string>("");
@@ -189,7 +190,7 @@ export default function Register() {
                         <label htmlFor="imageInput">Profile Picture</label>
                         <input type="file" accept="image/*" onChange={handleImageUpload} required={true}></input>
                         {image && image.src ? (
-        <img src={image.src} width={100} height={100} alt="Profile Preview" />
+        <Img src={image.src} width={100} height={100} alt="Profile Preview" />
     ) : null}
 </div>
                     <button type="submit" className="create-button">Create Account</button>

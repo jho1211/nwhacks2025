@@ -4,6 +4,7 @@ import { Connection, User } from "@/app/models/models"
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import axios from "@/app/utils/axios_instance";
+import Image from "next/image";
 import "./styles.css";
 
 export default function ConnectionRow(props: {uid: string, conn: Connection}) {
@@ -13,7 +14,7 @@ export default function ConnectionRow(props: {uid: string, conn: Connection}) {
     useEffect(() => {
         if (props.conn.participants[0] == props.uid) axios.get(`user/${props.conn.participants[1]}`).then(resp => setUser(resp.data))
         else axios.get(`user/${props.conn.participants[0]}`).then(resp => setUser(resp.data))
-    }, [])
+    }, [props.conn.participants, props.uid])
 
     const handleAccept = (other: string) => {
         const newConn: Connection = {
@@ -41,7 +42,7 @@ export default function ConnectionRow(props: {uid: string, conn: Connection}) {
     
     return (user ? <div className="conn">
         <div className="connection-row-profile">
-            <img className="connection-row-profile-img" src={user.profile_img}></img>
+            <Image className="connection-row-profile-img" alt={user.name} src={user.profile_img}></Image>
             <div className="connection-row-profile-name">{user.name}</div>
         </div>
         {props.conn.status == "pending" ? 

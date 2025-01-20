@@ -1,11 +1,12 @@
 import Link from "next/link";
 import styles from "./style.module.css";
+import Image from "next/image";
 
 export default function Navbar(props: {bgColor: string, uid: string}) {
     return (
         <header>
     <div style={{backgroundColor: props.bgColor}}>
-    <img src="/helpinghandlogo.png" alt="Logo"/>
+    <Image src="/helpinghandlogo.png" alt="Logo"/>
     </div>
     <nav className={styles.navbar} style={{backgroundColor: props.bgColor}}>
         <div className={styles.navbar__container}>
