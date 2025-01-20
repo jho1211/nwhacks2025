@@ -1,4 +1,5 @@
-import express from 'express'
+import express from 'express';
+import cors from 'cors';
 import { getUserInfo, getMentees, addUser, getWishlist,
   getConnections, createWishlist, addNewConnectionsList,
   updateUserInfo, updateWishlist, updateConnectionsList,
@@ -6,7 +7,7 @@ import { getUserInfo, getMentees, addUser, getWishlist,
   } from './fetch.js'
 
 const app = express();
-app.use(express.json({'limit': '5mb'}));
+app.use(cors(), express.json({'limit': '5mb'}));
 
 app.get("/", (req, res) => res.send("Express on Vercel"));
 // GET route to send user information with specified user id to frontend
