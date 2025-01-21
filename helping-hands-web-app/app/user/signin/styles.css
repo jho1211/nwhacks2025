@@ -4,7 +4,7 @@
     margin: 5px 0px
 }
 
-.signup-container {
+.signin-container {
     position: absolute;
     left: 50%;
     top: 50%;
@@ -54,11 +54,6 @@ h1 {
 
 a:hover {
     color: blue;
-}
-
-.signup-image {
-    width: 200px;
-    height: auto;
 }
   
 body {

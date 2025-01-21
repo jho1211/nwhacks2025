@@ -8,7 +8,13 @@ export default function GalleryItem(props: {user: User}) {
 
     return (<div className="gallery-card">
         <div>
-            <Image src={user.profile_img} alt={user.name} className="gallery-profile-img"></Image>
+            <Image 
+                src={user.profile_img} 
+                alt={user.name} 
+                className="gallery-profile-img" 
+                width={271} 
+                height={193}
+            />
             <div className="gallery-profile-name">{user.name}</div>
             <div className="gallery-profile-bio">{user.bio}</div>
         </div>

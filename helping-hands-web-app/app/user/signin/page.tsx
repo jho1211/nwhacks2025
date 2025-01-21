@@ -47,8 +47,8 @@ export default function Register() {
   }
 
   return (
-    <div className="signup-container">
-      <Image src="/heartinhand.png" alt="Helping Hands" className="signup-image" />
+    <div className="signin-container">
+      <Image src="/heartinhand.png" alt="Helping Hands" width={200} height={200}/>
       <h1>Welcome back</h1>
       {error == "" ? null : <div>{error}</div>}
       <form className="register-form" onSubmit={handleSubmit}>

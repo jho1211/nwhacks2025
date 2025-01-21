@@ -22,7 +22,7 @@ export default function LandingPage() {
     <>
       <Navbar bgColor="transparent" uid={uid ?? ""}></Navbar>
       <div className={styles.main__picture}>
-        <Image src="/hugging_official.jpg" alt="Main Picture" />
+        <Image src="/hugging_official.jpg" alt="Main Picture" fill={true}/>
       </div>
 
       <main>
@@ -88,21 +88,21 @@ export default function LandingPage() {
         <section className={styles.icons}>
           <Link href="/connect">
             <div className={styles.donation__btn}>
-              <Image src="/heartinhand.png" alt="Heart Icon" />
+              <Image src="/heartinhand.png" alt="Heart Icon" width={200} height={200} className={styles.donation__img} />
               <h3>Donations</h3>
               <p>Become a donor and support a member of your community.</p>
             </div>
           </Link>
           <Link href="/connect">
             <div className={styles.profiles__btn}>
-              <Image src="/profilepic.png" alt="Profile Icon" />
+              <Image src="/profilepic.png" alt="Profile Icon" width={200} height={200} className={styles.donation__img} />
               <h3>Profiles</h3>
               <p>Browse profiles of mentees in your area!</p>
             </div>
           </Link>
           <Link href="/">
             <div className={styles.testimonies__btn}>
-              <Image src="/handshake.png" alt="Handshake Icon" />
+              <Image src="/handshake.png" alt="Handshake Icon" width={200} height={200} className={styles.donation__img} />
               <h3>Testimonies</h3>
               <p>Read how Helping Hand changed lives.</p>
             </div>
