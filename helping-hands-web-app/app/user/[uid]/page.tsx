@@ -86,7 +86,7 @@ export default function ProfilePage({params}: {params: Promise<{ uid: string }>}
                 {errorMsg == "" ? null : <div>{errorMsg}</div>}
                 <div className="image-separator">
                     <div style={{paddingRight: "50px"}}>
-                        {user ? <Image src={user.profile_img} alt={user.name} className="profile-img"></Image> : null}
+                        {user ? <Image src={user.profile_img} alt={user.name} className="profile-img" width={310} height={310}></Image> : null}
                         <h1 className="name-tag">{user?.name}</h1>
                     </div>
                     <div className="bio">

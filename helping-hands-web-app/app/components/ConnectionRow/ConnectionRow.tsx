@@ -42,7 +42,12 @@ export default function ConnectionRow(props: {uid: string, conn: Connection}) {
     
     return (user ? <div className="conn">
         <div className="connection-row-profile">
-            <Image className="connection-row-profile-img" alt={user.name} src={user.profile_img}></Image>
+            <Image 
+                alt={user.name} 
+                src={user.profile_img} 
+                width={50} 
+                height={50}
+            />
             <div className="connection-row-profile-name">{user.name}</div>
         </div>
         {props.conn.status == "pending" ? 
