@@ -1,4 +1,5 @@
 # Helping Hand App
+[Link to App Demo](https://nwhacks2025-one.vercel.app/)
 
 # Motivation
 Within Canada, some communities have observed a 52% increase on average in homelessness from before the pandemic to December 2023. However, studies have shown that mentorship programs can dramatically increase the likelihood of individuals overcoming addiction, securing employment, and achieving stability. Our platform connects compassionate community members with individuals experiencing homelessness, offering guidance, companionship, and resources to help them rebuild their lives. Together, we can create real change and empower those in need to move toward a brighter future, all starting with a helping hand.
@@ -10,10 +11,9 @@ Within Canada, some communities have observed a 52% increase on average in homel
 - Firebase (Authentication / NoSQL database)
 
 # Authors
-- Yuko
-- Victor
-- Jina
-- Jeff
+<a href="https://github.com/jho1211/nwhacks2025/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=jho1211/nwhacks2025" />
+</a>
 
 # Screenshots
 ## Landing Page
