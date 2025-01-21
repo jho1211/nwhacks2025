@@ -127,7 +127,8 @@ export default function Register() {
         fr.readAsDataURL(f);
     }
 
-    return (<div className="signup-container">
+    return (<div className="background">
+        <div className="signup-container">
                 <h1>Create an Account</h1>
                 {error == "" ? null : <div>{error}</div>}
                 <form className="register-form" onSubmit={handleSubmit}>
@@ -195,5 +196,6 @@ export default function Register() {
 </div>
                     <button type="submit" className="create-button">Create Account</button>
                 </form>
+            </div>
             </div>)
 }

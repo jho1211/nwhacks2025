@@ -21,9 +21,7 @@ export default function LandingPage() {
   return (
     <>
       <Navbar bgColor="transparent" uid={uid ?? ""}></Navbar>
-      <div className={styles.main__picture}>
-        <Image src="/hugging_official.jpg" alt="Main Picture" fill={true}/>
-      </div>
+      <Image src="/hugging_official.jpg" alt="Main Picture" fill className={styles.main__picture}/>
 
       <main>
         <section className={styles.main__page}>

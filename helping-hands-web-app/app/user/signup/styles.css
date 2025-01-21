@@ -118,7 +118,7 @@ div.slider-label {
     margin: 0px 10px;
 }
 
-body {
+.background {
     background-image: linear-gradient(to bottom, rgb(250, 210, 136), rgb(252, 252, 251));
     background-size: cover;
     margin: 0;
