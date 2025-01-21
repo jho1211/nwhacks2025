@@ -21,16 +21,13 @@ export default function ProfilePage({params}: {params: Promise<{ uid: string }>}
     const [wishlist, setWishlist] = useState<Wishlist>();
     const [connections, setConnections] = useState<Connection[]>([]);
     const auth = getAuth(firebaseApp);
-    const router = useRouter();
     const curUid = useRef<string>("");
+    const router = useRouter();
     
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 curUid.current = user.uid;
-            } else {
-                router.push("/user/signin")
-                return (<div>You need to be logged in to access this page.</div>)
             }
           });
     });
@@ -57,7 +54,7 @@ export default function ProfilePage({params}: {params: Promise<{ uid: string }>}
     }, [user, uid])
 
     const handleConnect = () => {
-        if (curUid && user) {
+        if (curUid.current != "" && user) {
             const connection : Connection = {
                 id: uuidv4(),
                 participants: [curUid.current, user.uid],
@@ -76,6 +73,8 @@ export default function ProfilePage({params}: {params: Promise<{ uid: string }>}
                 console.log(err);
                 alert(`Connection request error: ${(err.response!.data as {message: string}).message as string}`);
             })
+        } else {
+            router.push("/user/signin")
         }
     }
 

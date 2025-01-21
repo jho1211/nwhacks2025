@@ -22,3 +22,14 @@
     text-decoration-skip-ink: none;
     margin-bottom: 50px;
 }
+
+.gallery-section {
+    text-align: left;
+    font-family: Ubuntu;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 57.45px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
