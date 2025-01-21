@@ -3,7 +3,6 @@
   height: 450px;
   gap: 0px;
   border-radius: 56.28px;
-  opacity: 0px;
   border: 2px solid #282c4b;
   display: flex;
   flex-direction: column;
@@ -17,7 +16,6 @@
   height: 193px;
   gap: 0px;
   border-radius: 30px;
-  opacity: 0px;
   object-fit: cover;
 }
 
@@ -51,7 +49,6 @@
   height: 58px;
   gap: 0px;
   border-radius: 30px;
-  opacity: 0px;
   background-color: #ffb265;
   font-weight: 700;
   font-size: 20px;
