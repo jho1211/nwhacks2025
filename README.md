@@ -17,7 +17,7 @@ Within Canada, some communities have observed a 52% increase on average in homel
 
 # Screenshots
 ## Landing Page
-![image](https://github.com/user-attachments/assets/246ee62c-7ee0-4a2d-aae1-53fbf53edbb7)
+![image](https://github.com/user-attachments/assets/60268e02-bc22-4633-87f3-5791fd03fc13)
 ## Profiles Page
 ![image](https://github.com/user-attachments/assets/c0cb6dd2-0e24-4ba9-b14b-b446fc218061)
 ## Chat Page
