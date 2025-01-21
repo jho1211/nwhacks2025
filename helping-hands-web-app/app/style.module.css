@@ -15,10 +15,8 @@
   line-height: 1.5;
 }
 
-.main__picture img {
+.main__picture {
   position: absolute; /* allows image to underlay and fill as a background */
-  width: 100%;
-  height: 100%;
   top: 0px;
   opacity: 0.3;
   object-fit: fill;

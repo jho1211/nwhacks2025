@@ -32,36 +32,38 @@ export default function Register() {
   }
 
   return (
-    <div className="signin-container">
-      <Image src="/heartinhand.png" alt="Helping Hands" width={200} height={200}/>
-      <h1>Welcome back</h1>
-      {error == "" ? null : <div>{error}</div>}
-      <form className="register-form" onSubmit={handleSubmit}>
-        <div className="input-group">
-          <label htmlFor="emailInput">Email</label>
-          <input
-            type="email"
-            id="emailInput"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          ></input>
-        </div>
-        <div className="input-group">
-          <label htmlFor="pwInput">Password</label>
-          <input
-            type="password"
-            id="pwInput"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          ></input>
-        </div>
-        <button type="submit" className="create-button">
-          Sign-in
-        </button>
-        <div className="create-account">
-          <Link href="/user/signup">Create an Account</Link>
-        </div>
-      </form>
+    <div className="background">
+      <div className="signin-container">
+        <Image src="/heartinhand.png" alt="Helping Hands" width={200} height={200}/>
+        <h1>Welcome back</h1>
+        {error == "" ? null : <div>{error}</div>}
+        <form className="register-form" onSubmit={handleSubmit}>
+          <div className="input-group">
+            <label htmlFor="emailInput">Email</label>
+            <input
+              type="email"
+              id="emailInput"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            ></input>
+          </div>
+          <div className="input-group">
+            <label htmlFor="pwInput">Password</label>
+            <input
+              type="password"
+              id="pwInput"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            ></input>
+          </div>
+          <button type="submit" className="create-button">
+            Sign-in
+          </button>
+          <div className="create-account">
+            <Link href="/user/signup">Create an Account</Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
