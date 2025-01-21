@@ -187,3 +187,8 @@ input[type="file"] {
 #emailInput {
     margin-bottom: 0px; /* Remove the margin below email input */
 }
+
+.alert-text {
+    color: red;
+    font-size: 12px;
+  }
